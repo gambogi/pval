@@ -8,7 +8,6 @@ use Pval::Database::Schema;
 
 get '/' => sub {
     my $db = schema 'default';
-    $db->deploy({ add_drop_table => 1 });
     template 'index';
 };
 

@@ -16,7 +16,7 @@ __PACKAGE__->add_columns(
     },
     'freshman' => {
         data_type => 'integer',
-        size => 1024,
+        size => 16,
         is_nullable => 1,
     },
     'timestamp' => {
