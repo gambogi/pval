@@ -8,10 +8,12 @@ use Dancer ':moose';
 use Dancer::Plugin::DBIC;
 use Data::UUID;
 use Moose;
-use Net::LDAP;
 
 with 'Pval::Roles::DBRole';
 with 'Pval::Roles::LDAPRole';
+
+# Satisfies LDAPRole and DBRole requirements
+sub commit {}
 
 has username => (
     is => 'rw',
@@ -28,16 +30,12 @@ sub BUILD {
     $self->ldap_object($self->_fetch_from_ldap("uid=" . $self->username));
     my $dbic_object = $db->resultset('User')->search({ UUID => $ug->from_string($self->ldap_object->get_value('entryUUID')) })->first;
 
-    unless (defined $dbic_object) {
+    unless ($dbic_object) {
         $dbic_object = $db->resultset('User')->new({ UUID => $ug->from_string($self->ldap_object->get_value('entryUUID')) });
         $self->insert_needed(1);
     }
 
     $self->dbic_object($dbic_object);
-}
-
-# Satisfies LDAPRole and DBRole requirements
-sub commit {
 }
 
 __PACKAGE__->meta->make_immutable;

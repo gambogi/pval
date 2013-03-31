@@ -15,6 +15,11 @@ __PACKAGE__->add_columns(
         size => 16,
         is_nullable => 0,
     },
+    name => {
+        data_type => 'varchar',
+        size => 1024,
+        is_nullable => 0,
+    },
     vote_date => {
         data_type => 'date',
         is_nullable => 0,
@@ -32,6 +37,7 @@ __PACKAGE__->add_columns(
         data_type => 'integer',
         size => 1,
         is_nullable => 0,
+        default => 0,
     },
     freshman_project_comments => {
         data_type => 'varchar',
@@ -45,7 +51,6 @@ __PACKAGE__->add_columns(
             list => [qw/pass fail pending conditional/],
         },
         is_nullable => 0,
-        default => 'pass',
     },
     timestamp => {
         data_type => 'timestamp',

@@ -4,8 +4,6 @@ use strict;
 use warnings;
 use v5.10;
 
-use Data::Dumper;
-
 use Cache::Memcached::Fast;
 use Dancer ':moose';
 use Dancer::Plugin::LDAP;
