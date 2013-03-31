@@ -13,7 +13,10 @@ with 'Pval::Roles::DBRole';
 with 'Pval::Roles::LDAPRole';
 
 # Satisfies LDAPRole and DBRole requirements
-sub commit {}
+sub commit {
+    my $self = shift;
+    $self->dbic_object->freshman->update;
+}
 
 has username => (
     is => 'rw',

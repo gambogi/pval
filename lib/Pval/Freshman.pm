@@ -6,12 +6,17 @@ use v5.10;
 
 use Dancer ':moose';
 use Dancer::Plugin::DBIC;
+use Data::UUID;
 use DateTime;
 use Moose;
+use Pval::User;
 
 with 'Pval::Roles::DBRole';
 
-sub commit {}
+sub commit {
+    my $self = shift;
+    $self->dbic_object->user->update;
+}
 
 has ten_week => (
     is => 'rw',
@@ -32,9 +37,9 @@ sub BUILD {
     my $self = shift;
     my $db = schema 'default';
 
-    my $dbic_object = $db->resultset('Freshman')->search({ name => $self->name });
+    my $dbic_object = $db->resultset('Freshman')->search({ name => $self->name })->first;
 
-    unless (not $dbic_object) {
+    unless ($dbic_object) {
         if (not defined $self->vote_date or not defined $self->ten_week) {
             $self = undef;
             return;
@@ -51,6 +56,15 @@ sub BUILD {
     }
 
     $self->dbic_object($dbic_object);
+}
+
+sub create_account {
+    my ($self, $uid) = @_;
+    my $ug = Data::UUID->new;
+    my $user = Pval::User->new({ username => $uid });
+
+    $self->dbic_object->user->UUID($ug->from_string($user->ldap_object->get_value('entryUUID')));
+    $self->commit;
 }
 
 __PACKAGE__->meta->make_immutable;
