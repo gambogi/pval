@@ -18,8 +18,8 @@ use Pval::User;
 get '/' => sub {
     my $user = Pval::Freshman->new({ name => 'William Orr' });
 
-    template 'test', {
-        user => $user->user,
+    template 'personal_application', {
+        user => $user,
     };
 };
 

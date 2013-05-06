@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PvalDB</title>
+    <link href='[% request.uri_base %]/css/base.css' type='text/css' rel='stylesheet' />
+    <script src='[% request.uri_base %]/js/jquery.js' type='text/javascript'></script>
+    <script src='[% request.uri_base %]/js/base.js' type='text/javascript'></script>
+  </head>
+  <body>
+    <div id='container'>
+      <div id='head'>
+        <section id='house-meetings'>
+          <h2>House Meetings</h2>
+          <var>
+            <strong>[% user.dbic_object.house_meeting_attendance %]</strong>
+            / [% house_meeting_total %]
+          </var>
+        </section>
+        <section id='committee-meetings'>
+          <h2>Committee Meetings</h2>
+          <var>
+            <strong>[% user.dbic_object.committee_meeting_attendance %]</strong>
+            / [% user.committee_meeting_requirement %]
+          </var>
+        </section>
+        <section id='user-information'>
+          <img src='[% request.uri_base %]/img/avatar.jpg' />
+          <h2>[% user.ldap_object.fullname %]</h2>
+        </section>
+        <h1 id='next-evaluation'>
+          <strong>[% days_until_next_evaluation %]</strong>
+          days until [% next_evaluation_title %] evaluation
+        </h1>
+        <nav>
+          <ul>
+            <li id='profile-nav'>Profile</li>
+            <li id='housing-nav'>Housing</li>
+            <li id='members-nav'>Members</li>
+          </ul>
+        </nav>
+      </div>
+      <div id='body'>
+        <div id='profile'>
+          [% include "personal_application/profile.tt" %]
+        </div>
+        <div id='housing'>
+        </div>
+        <div id='members'>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

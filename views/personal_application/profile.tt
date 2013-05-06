@@ -1,0 +1,77 @@
+<section id='social-events'>
+  <h2>Social Events</h2>
+  <ul>
+    [% foreach social_event = user.social_events %]
+      <li class='social-event'>
+        <div class='head'>
+          <span class='title'>[% social_event.title %]</span>
+        </div>
+      </li>
+    [% end %]
+    <li class='new-social-event'>+ Social Event</li>
+
+  </ul>
+</section>
+<section id='seminars'>
+  <h2>Seminars</h2>
+  <ul>
+    [% foreach seminar = user.seminars %]
+      <li class='seminar'>
+        <div class='head'>
+          <span class='title'>[% seminar.title %]</span>
+          [% if seminar.host %]
+            [% if seminar.pending %]
+              <span class='asterisk pending'>*</span>
+            [% else %]
+              <span class='asterisk complete'>*</span>
+            [% end %]
+          [% end %]
+        </div>
+        [% if seminar.host %]
+          <div class='body'>
+            <div class='attendees'></div>
+            <input class='attendee-search' data-members='[% complete_member_list %]' type='text' />
+          </div>
+        [% end %]
+      </li>
+    [% end %]
+    <form class='seminar' action='/seminar/create'>
+      <div class='head'>
+        <input class='title' placeholder='Title' name='title' maxlength='25' />
+      </div>
+      <div class='body' final-day='[% final_day %]' data-today='[% today %]' data-current-weekday='[% current_weekday %]' data-last-day-of-current-month='[% last_day_of_current_month %]' data-leap-year='[% leap_year %]'>
+        <input class='month' type='hidden' name='month' />
+        <input class='day' type='hidden' name='day' />
+        <div class='at-symbol'>@</div>
+        <input class='hour' type='hidden' name='hour' />
+        <div class='colon'>:</div>
+        <input class='minute' type='hidden' name='minute' />
+        <input class='period' type='hidden' name='period' />
+
+      </div>
+    </form>
+    <li class='new-seminar'>+ Seminar</li>
+
+  </ul>
+</section>
+<section id='major-projects'>
+  <h2>Major Projects</h2>
+  <ul>
+    [% foreach major_project = user.major_projects %]
+      <li class='major-project'>
+        <div class='head'>
+          <span class='title'>[% major_project.title %]</span>
+          [% if major_project.passed %]
+            <span class='asterisk complete'>*</span>
+          [% else %]
+            <span class='asterisk pending'>*</span>
+          [% end %]
+        </div>
+        <div class='body'>
+          <p>[% major_project.description %]</p>
+        </div>
+      </li>
+    [% end %]
+    <li class='new-major-project'>+ Major Project</li>
+  </ul>
+</section>
