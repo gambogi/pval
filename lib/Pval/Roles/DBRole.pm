@@ -6,6 +6,7 @@ use v5.10;
 
 use Dancer ':moose';
 use Moose::Role;
+use Scalar::Util;
 
 requires 'commit';
 

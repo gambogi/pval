@@ -67,6 +67,35 @@ sub create_account {
     $self->commit;
 }
 
+sub add_packet {
+    my $self = shift;
+    my ($given, $due) = @_; 
+    my $db = schema 'default';
+
+    my $packet = $db->resultset('Packet')->new({ given => $given, due => $due, user => $self->dbic_object });
+    $packet->insert;
+}
+
+sub get_latest_packet {
+    my $self = shift;
+    my $db = schema 'default';
+
+    my @packet = @{$self->dbic_object->packets};
+    return @packet;
+}
+
+sub missing_signatures {
+    my ($self, $packet, $usernames) = @_;
+    my $db = schema 'default';
+
+    foreach my $username (@$usernames) {
+        $packet->add_to_missing_signatures(Pval::User->new({ username => $username })->dbic_object);
+    }
+
+    $packet->update;
+    $self->commit;
+}
+
 __PACKAGE__->meta->make_immutable;
 
 1;

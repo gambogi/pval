@@ -29,7 +29,7 @@ __PACKAGE__->add_columns(
 );
 
 __PACKAGE__->set_primary_key('id');
-__PACKAGE__->belongs_to('user' => 'Pval::Database::Schema::Result::User');
+__PACKAGE__->belongs_to('user' => 'Pval::Database::Schema::Result::Freshman');
 __PACKAGE__->has_many('packet_missing_signatures' => 'Pval::Database::Schema::Result::PacketMissingSignature', 'packet');
 __PACKAGE__->many_to_many('missing_signatures' => 'packet_missing_signatures', 'missing_signature');
 
