@@ -1,5 +1,8 @@
 package Pval::Database::Schema::Result::Freshman;
 
+use DateTime;
+use Moose;
+
 use base qw/DBIx::Class::Core/;
 __PACKAGE__->load_components(qw/InflateColumn::DateTime InflateColumn::Object::Enum/);
 __PACKAGE__->table('freshmen');
@@ -37,7 +40,7 @@ __PACKAGE__->add_columns(
         data_type => 'integer',
         size => 1,
         is_nullable => 0,
-        default => 0,
+        default_value => 0,
     },
     freshman_project_comments => {
         data_type => 'varchar',
@@ -51,9 +54,11 @@ __PACKAGE__->add_columns(
             list => [qw/pass fail pending conditional/],
         },
         is_nullable => 0,
+        default_value => "pending",
     },
     timestamp => {
         data_type => 'timestamp',
+        default_value => \'now',
     },
 );
 

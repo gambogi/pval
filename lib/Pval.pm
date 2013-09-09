@@ -12,14 +12,18 @@ our $VERSION = '0.1';
 use Data::Dumper;
 use Data::UUID;
 use DateTime;
+use Pval::Database::Schema;
 use Pval::Freshman;
 use Pval::User;
 
 get '/' => sub {
-    my $user = Pval::Freshman->new({ name => 'William Orr' });
+    #my $db = schema 'default';
+    #$db->deploy;
 
-    template 'personal_application', {
-        user => $user,
+    my $user = Pval::Freshman->new({ name => 'William Orr' });
+    $user->commit;
+    template 'index', {
+        user => Dumper($user->dbic_object->user)
     };
 };
 

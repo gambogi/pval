@@ -11,49 +11,52 @@ use DateTime;
 use Moose;
 use Pval::User;
 
+use Data::Dumper;
+
 with 'Pval::Roles::DBRole';
 
 sub commit {
     my $self = shift;
-    $self->dbic_object->user->update;
+    $self->dbic_object->user->result_source->schema(schema 'default');
+    if ($self->insert_needed) {
+        $self->user->insert;
+    } else {
+        $self->user->update;
+    }
 }
-
-has ten_week => (
-    is => 'rw',
-    isa => 'DateTime',
-);
-
-has vote_date => (
-    is => 'rw',
-    isa => 'DateTime',
-);
-
-has name => (
-    is => 'rw',
-    isa => 'Str',
-);
 
 sub BUILD {
     my $self = shift;
+    my $args = shift;
     my $db = schema 'default';
 
-    my $dbic_object = $db->resultset('Freshman')->search({ name => $self->name })->first;
+    my $name = $args->{name};
+    my $vote_date = $args->{vote_date};
+    my $ten_week = $args->{ten_week};
+
+    $self->db_methods([ qw/user name vote_date comments ten_week passed_freshman_project freshman_project_comments result timestamp/ ]);
+
+    die "Need to provide name" unless $name;
+
+    my $dbic_object = $db->resultset('Freshman')->search({ name => $name })->first;
 
     unless ($dbic_object) {
-        if (not defined $self->vote_date or not defined $self->ten_week) {
-            $self = undef;
-            return;
-        }
+        die "Need vote_date and ten_week" unless ($vote_date and $ten_week);
 
         my $user = $db->resultset('User')->new({});
         $dbic_object = $db->resultset('Freshman')->new({ 
-            name => $self->name, 
-            user => $user, 
-            vote_date => $self->vote_date,
-            ten_week => $self->ten_week,
+            name => $name, 
+            vote_date => $vote_date,
+            ten_week => $ten_week,
         });
+
+        # wtf dbic
+        $dbic_object->user($user);
         $self->insert_needed(1);
     }
+
+    # This is definitely a DBIx::Class bug
+    $dbic_object->result_source->schema($db);
 
     $self->dbic_object($dbic_object);
 }
@@ -95,7 +98,5 @@ sub missing_signatures {
     $packet->update;
     $self->commit;
 }
-
-__PACKAGE__->meta->make_immutable;
 
 1;

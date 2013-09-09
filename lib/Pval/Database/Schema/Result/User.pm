@@ -1,5 +1,8 @@
 package Pval::Database::Schema::Result::User;
 
+use DateTime;
+use Moose;
+
 use base qw/DBIx::Class::Core/;
 __PACKAGE__->table('users');
 __PACKAGE__->add_columns(
@@ -21,6 +24,7 @@ __PACKAGE__->add_columns(
     },
     'timestamp' => {
         data_type => 'timestamp',
+        default_value => \'now',
     },
 );
 
