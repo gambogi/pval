@@ -19,6 +19,8 @@ use Pval::Schema::Result::User;
 # Other routes
 use Pval::User;
 
+prefix undef;
+
 get '/' => sub {
     my $db = schema 'default';
     #$db->deploy;
