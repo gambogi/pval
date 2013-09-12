@@ -24,6 +24,7 @@ WriteMakefile(
         'DBIx::Class::InflateColumn::Object::Enum'  => 0,
         'Try::Tiny' => 0,
         'HTML::Entities' => 0,
+        'Template' => 0,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'pval-*' },
