@@ -24,7 +24,7 @@ sub find_user {
     my $username = shift;
     my $ug = Data::UUID->new;
 
-    my $user = $self->_fetch_from_ldap("uid=$username", [ qw/uid cn entryUUID active alumni housingPoints onfloor roomNumber/ ]);
+    my $user = $self->_fetch_from_ldap("uid=$username", [ qw/uid cn entryUUID active alumni housingPoints onfloor roomNumber/ ])->[0];
     die "Cannot find $username in LDAP" unless $user;
     return $user;
 }
@@ -32,26 +32,33 @@ sub find_user {
 sub get_eval_director {
     my $self = shift;
 
-    my $ret = $self->_fetch_from_ldap("cn=Evaulations", [ qw/head/ ], 'ou=Committees,dc=csh,dc=rit,dc=edu');
+    my $ret = $self->_fetch_from_ldap("cn=Evaulations", [ qw/head/ ], 'ou=Committees,dc=csh,dc=rit,dc=edu')->[0];
     die "Cannot find eval director in LDAP" unless $ret;
     map { s/uid=(\w+),ou=Users,dc=csh,dc=rit,dc=edu/$1/ } @{$ret->get("head")};
     return $ret->get("head");
 }
 
+# This query only fetches uids so we can make use 
+# of existing entries from memcached
+sub get_active_users {
+    my $self = shift;
+
+    my $ret = $self->_fetch_from_ldap("active=1", [ qw/uid/ ]);
+}
+
 sub _fetch_from_ldap {
     my ($self, $query, $attrs, $base) = @_;
-    my $result;
 
     $base //= 'dc=csh,dc=rit,dc=edu';
 
     my $ret = $self->memcached->get($query);
     return $ret if defined $ret;
 
-    $ret = ldap->search(
+    $ret = [ (ldap->search(
         base => $base,
         filter => $query,
         attrs => $attrs,
-    )->entry(0);
+    )->entries()) ];
 
     $self->memcached->set($query, $ret) if defined $ret;
 

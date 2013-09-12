@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>ERROR</title>
-</head>
-<body>
+[% PROCESS header.tt title = "ERROR" %]
 [% error | html_entity %]
-</body>
-</html>
+[% PROCESS footer.tt %]

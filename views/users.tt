@@ -1,0 +1,5 @@
+[% PROCESS header.tt title = "USERS" %]
+[% FOREACH user = users %]
+[% PROCESS user_entity.tt user = user %]
+[% END %]
+[% PROCESS footer.tt %]
