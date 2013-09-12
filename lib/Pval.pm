@@ -9,7 +9,6 @@ use Dancer::Plugin::DBIC;
 
 our $VERSION = '0.1';
 
-use Data::Dumper;
 use Data::UUID;
 use DateTime;
 use Pval::LDAP;

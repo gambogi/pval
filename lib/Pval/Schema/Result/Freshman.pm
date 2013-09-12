@@ -6,7 +6,6 @@ use v5.10;
 
 use Dancer ':moose';
 use Dancer::Plugin::DBIC;
-use Data::Dumper;
 use Moose;
 use Pval::LDAP;
 
