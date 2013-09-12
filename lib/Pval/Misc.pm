@@ -2,7 +2,6 @@ package Pval::Misc;
 
 use strict;
 use warnings;
-
 use v5.10;
 
 use Dancer;

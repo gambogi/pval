@@ -1,5 +1,9 @@
 package Pval::LDAP;
 
+use strict;
+use warnings;
+use v5.10;
+
 use Cache::Memcached::Fast;
 use Dancer;
 use Dancer::Plugin::LDAP;
@@ -7,6 +11,9 @@ use Data::UUID;
 use Moose;
 use Net::LDAP::Entry;
 use Pval::Schema::Result::User;
+
+use constant EXPIRY_BASE => 36000;
+use constant RAND_EXPIRY_MAX => 3600;
 
 has memcached => (
     is => 'ro',
@@ -60,7 +67,8 @@ sub _fetch_from_ldap {
         attrs => $attrs,
     )->entries()) ];
 
-    $self->memcached->set($query, $ret) if defined $ret;
+    # The longest possibly cache time is about eleven hours. The expiry is staggered
+    $self->memcached->set($query, $ret, EXPIRY_BASE + int(rand(RAND_EXPIRY_MAX))) if defined $ret;
 
     return $ret;
 }

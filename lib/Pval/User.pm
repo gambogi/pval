@@ -35,6 +35,7 @@ sub get_user_hash {
         $db->resultset('User')->create({ UUID => $ldap_user->get('entryUUID') });
     }
 
+    # wtf CSH
     my $roomnumber = $ldap_user->get('roomNumber');
     $roomnumber //= [ 0 ];
     my $housing_points = $ldap_user->get('housingPoints');
