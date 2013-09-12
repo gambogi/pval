@@ -5,7 +5,7 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME                => 'pval',
     AUTHOR              => q{William Orr <worr@csh.rit.edu},
-    VERSION_FROM        => 'lib/pval.pm',
+    VERSION_FROM        => 'lib/Pval.pm',
     ABSTRACT            => 'Updated evals database for CSH',
     ($ExtUtils::MakeMaker::VERSION >= 6.3002
       ? ('LICENSE'=> 'MIT')
