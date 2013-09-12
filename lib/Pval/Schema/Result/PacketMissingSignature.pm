@@ -1,6 +1,12 @@
-package Pval::Database::Schema::Result::PacketMissingSignature;
+package Pval::Schema::Result::PacketMissingSignature;
 
-use base qw/DBIx::Class::Core/;
+use strict;
+use warnings;
+use v5.10;
+
+use Moose;
+
+extends 'DBIx::Class::Core';
 __PACKAGE__->table('packet_missing_signatures');
 __PACKAGE__->add_columns(
     'packet' => {
@@ -15,7 +21,7 @@ __PACKAGE__->add_columns(
     },
 );
 
-__PACKAGE__->belongs_to('packet' => 'Pval::Database::Schema::Result::Packet');
-__PACKAGE__->belongs_to('missing_signature' => 'Pval::Database::Schema::Result::User');
+__PACKAGE__->belongs_to('packet' => 'Pval::Schema::Result::Packet');
+__PACKAGE__->belongs_to('missing_signature' => 'Pval::Schema::Result::User');
 
 1;

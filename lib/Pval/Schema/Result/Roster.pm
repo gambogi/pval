@@ -1,6 +1,12 @@
-package Pval::Database::Schema::Result::Roster;
+package Pval::Schema::Result::Roster;
 
-use base qw/DBIx::Class::Core/;
+use strict;
+use warnings;
+use v5.10;
+
+use Moose;
+
+extends 'DBIx::Class::Core';
 __PACKAGE__->load_components('InflateColumn::DateTime');
 __PACKAGE__->table('roster');
 __PACKAGE__->add_columns(
@@ -30,6 +36,6 @@ __PACKAGE__->add_columns(
 );
 
 __PACKAGE__->set_primary_key('id');
-__PACKAGE__->belongs_to(user => 'Pval::Database::Schema::Result::User');
+__PACKAGE__->belongs_to(user => 'Pval::Schema::Result::User');
 
 1;

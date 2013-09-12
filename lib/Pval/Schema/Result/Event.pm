@@ -1,6 +1,12 @@
-package Pval::Database::Schema::Result::Event;
+package Pval::Schema::Result::Event;
 
-use base qw/DBIx::Class::Core/;
+use strict;
+use warnings;
+use v5.10;
+
+use Moose;
+
+extends 'DBIx::Class::Core';
 __PACKAGE__->load_components(qw/InflateColumn::Object::Enum InflateColumn::DateTime/);
 __PACKAGE__->table('events');
 __PACKAGE__->add_columns(
@@ -42,8 +48,8 @@ __PACKAGE__->add_columns(
 );
 
 __PACKAGE__->set_primary_key('id');
-__PACKAGE__->belongs_to('presenter' => 'Pval::Database::Schema::Result::User');
-__PACKAGE__->has_many('event_attendee' => 'Pval::Database::Schema::Result::EventAttendee', 'event');
+__PACKAGE__->belongs_to('presenter' => 'Pval::Schema::Result::User');
+__PACKAGE__->has_many('event_attendee' => 'Pval::Schema::Result::EventAttendee', 'event');
 __PACKAGE__->many_to_many('attendees' => 'event_attendee', 'attendee');
 
 1;

@@ -1,6 +1,12 @@
-package Pval::Database::Schema::Result::Packet;
+package Pval::Schema::Result::Packet;
 
-use base qw/DBIx::Class::Core/;
+use strict;
+use warnings;
+use v5.10;
+
+use Moose;
+
+extends 'DBIx::Class::Core';
 __PACKAGE__->load_components('InflateColumn::DateTime');
 __PACKAGE__->table('packets');
 __PACKAGE__->add_columns(
@@ -25,12 +31,13 @@ __PACKAGE__->add_columns(
     },
     timestamp => {
         data_type => 'timestamp',
+        default_value => \'now',
     },
 );
 
 __PACKAGE__->set_primary_key('id');
-__PACKAGE__->belongs_to('user' => 'Pval::Database::Schema::Result::Freshman');
-__PACKAGE__->has_many('packet_missing_signatures' => 'Pval::Database::Schema::Result::PacketMissingSignature', 'packet');
+__PACKAGE__->belongs_to('user' => 'Pval::Schema::Result::Freshman');
+__PACKAGE__->has_many('packet_missing_signatures' => 'Pval::Schema::Result::PacketMissingSignature', 'packet');
 __PACKAGE__->many_to_many('missing_signatures' => 'packet_missing_signatures', 'missing_signature');
 
 1;

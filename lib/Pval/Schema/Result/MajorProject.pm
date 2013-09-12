@@ -1,6 +1,12 @@
-package Pval::Database::Schema::Result::MajorProject;
+package Pval::Schema::Result::MajorProject;
 
-use base qw/DBIx::Class::Core/;
+use strict;
+use warnings;
+use v5.10;
+
+use Moose;
+
+extends 'DBIx::Class::Core';
 __PACKAGE__->load_components(qw/InflateColumn::DateTime InflateColumn::Object::Enum/);
 __PACKAGE__->table('major_projects');
 __PACKAGE__->add_columns(
@@ -45,6 +51,6 @@ __PACKAGE__->add_columns(
 );
 
 __PACKAGE__->set_primary_key('id');
-__PACKAGE__->belongs_to('submitter', 'Pval::Database::Schema::Result::User');
+__PACKAGE__->belongs_to('submitter', 'Pval::Schema::Result::User');
 
 1;

@@ -1,6 +1,12 @@
-package Pval::Database::Schema::Result::EventAttendee;
+package Pval::Schema::Result::EventAttendee;
 
-use base qw/DBIx::Class::Core/;
+use strict;
+use warnings;
+use v5.10;
+
+use Moose;
+
+extends 'DBIx::Class::Core';
 __PACKAGE__->table('event_attendee');
 __PACKAGE__->add_columns(
     'event' => {
@@ -15,7 +21,7 @@ __PACKAGE__->add_columns(
     },
 );
 
-__PACKAGE__->belongs_to('attendee' => 'Pval::Database::Schema::Result::User');
-__PACKAGE__->belongs_to('event' => 'Pval::Database::Schema::Result::Event');
+__PACKAGE__->belongs_to('attendee' => 'Pval::Schema::Result::User');
+__PACKAGE__->belongs_to('event' => 'Pval::Schema::Result::Event');
 
 1;
