@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ERROR</title>
+</head>
+<body>
+[% error | html_entity %]
+</body>
+</html>

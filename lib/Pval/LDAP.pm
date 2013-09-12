@@ -24,7 +24,7 @@ sub find_user {
     my $username = shift;
     my $ug = Data::UUID->new;
 
-    my $user = $self->_fetch_from_ldap("uid=$username", [ qw/cn entryUUID active alumni housingPoints onfloor roomNumber/ ]);
+    my $user = $self->_fetch_from_ldap("uid=$username", [ qw/uid cn entryUUID active alumni housingPoints onfloor roomNumber/ ]);
     die "Cannot find $username in LDAP" unless $user;
     return $user;
 }
@@ -34,7 +34,7 @@ sub get_eval_director {
 
     my $ret = $self->_fetch_from_ldap("cn=Evaulations", [ qw/head/ ], 'ou=Committees,dc=csh,dc=rit,dc=edu');
     die "Cannot find eval director in LDAP" unless $ret;
-    map { s/uid=(\w+),ou=Users,dc=csh,dc=rit,dc=edu/\1/ } @{$ret->get("head")};
+    map { s/uid=(\w+),ou=Users,dc=csh,dc=rit,dc=edu/$1/ } @{$ret->get("head")};
     return $ret->get("head");
 }
 
@@ -53,7 +53,7 @@ sub _fetch_from_ldap {
         attrs => $attrs,
     )->entry(0);
 
-    $self->memcached->set($query, $ret);
+    $self->memcached->set($query, $ret) if defined $ret;
 
     return $ret;
 }

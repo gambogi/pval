@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>[% user.name %]</title>
+</head>
+<body>
+<ul>
+<li>name: [% user.name | html_entity %]</li>
+<li>room: [% user.room | html_entity %]</li>
+<li>uid: [% user.uid | html_entity %]</li>
+<li>active: [% user.active | html_entity %]</li>
+<li>alumni: [% user.alumni | html%]</li>
+<li>onFloor: [% user.on_floor | html_entity %]</li>
+<li>housingPoints: [% user.housing_points | html_entity %]</li>
+</ul>
+</body>
+</html>
