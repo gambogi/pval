@@ -23,7 +23,7 @@ WriteMakefile(
         'Cache::Memcached::Fast'    => 0,
         'DBIx::Class::InflateColumn::Object::Enum'  => 0,
         'Try::Tiny' => 0,
-        'Apache::Util' => 0,
+        'HTML::Entities' => 0,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'pval-*' },
