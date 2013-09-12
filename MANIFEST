@@ -21,12 +21,9 @@ lib/Pval/Schema/Result/SpringEval.pm
 lib/Pval/Schema/Result/User.pm
 lib/Pval/Schema/Result/WinterEval.pm
 lib/Pval/User.pm
-lib/{val.pm
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
-MYMETA.json
-MYMETA.yml
 public/404.html
 public/500.html
 public/css/error.css
@@ -34,7 +31,6 @@ public/css/style.css
 public/dispatch.cgi
 public/dispatch.fcgi
 public/favicon.ico
-pval.db
 t/001_base.t
 t/002_index_route.t
 views/error.tt
