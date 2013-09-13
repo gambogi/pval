@@ -23,15 +23,8 @@ prefix undef;
 
 get '/' => sub {
     my $db = schema 'default';
-    #$db->deploy;
 
-    #my $freshie = $db->resultset('Freshman')->create({ name => 'Will Orr', vote_date => DateTime->now, ten_week => DateTime->now });
-    #$freshie->insert;
-    #$freshie->create_account("worr");
-    #$freshie->add_packet(DateTime->now, DateTime->now);
-    #my $packet = $freshie->get_latest_packet;
     my $user = Pval::LDAP->new->get_eval_director;
-
     template 'index', {
         user => $user->[0],
     };
