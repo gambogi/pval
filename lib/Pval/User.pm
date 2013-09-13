@@ -29,13 +29,19 @@ sub user_to_hash {
     my $alumni = $ldap_user->get('alumni');
     $alumni //= [ 0 ];
 
+    my $active = $ldap_user->get('active');
+    $active //= [ 0 ];
+
+    my $onfloor = $ldap_user->get('onfloor');
+    $onfloor //= [ 0 ];
+
     return {
         uid => $ldap_user->get('uid')->[0],
         name => $ldap_user->get('cn')->[0],
         room => $roomnumber->[0],
-        active => $ldap_user->get('active')->[0],
+        active => $active->[0],
         alumni => $alumni->[0],
-        on_floor => $ldap_user->get('onfloor')->[0],
+        on_floor => $onfloor->[0],
         housing_points => $housing_points->[0],
     };
 }
