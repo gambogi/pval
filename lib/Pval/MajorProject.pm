@@ -21,6 +21,7 @@ get '/' => sub {
 
     foreach my $project (@projects) {
         $project->{user} = user_to_hash($ldap->uuid_to_user($project->submitter->UUID));
+        $project->committee($ldap->uuid_to_committee($project->committee)->get('cn'));
     }
 
     return template_or_json({
@@ -39,6 +40,7 @@ get '/incoming' => sub {
 
     foreach my $project (@projects) {
         $project->{user} = user_to_hash($ldap->uuid_to_user($project->submitter->UUID));
+        $project->committee($ldap->uuid_to_committee($project->committee)->get('cn'));
     }
 
     return template_or_json({
@@ -57,6 +59,7 @@ get '/:id' => sub {
     };
 
     if (defined $project) {
+        $project->committee($ldap->uuid_to_committee($project->committee)->get('cn'));
         return template_or_json({
             project => $project,
             user => user_to_hash($ldap->uuid_to_user($project->submitter->UUID)),
@@ -90,6 +93,10 @@ get '/user/:user' => sub {
     }, {
         join => 'submitter',
     });
+
+    foreach my $project (@projects) {
+        $project->committee($ldap->uuid_to_committee($project->committee)->get('cn'));
+    }
 
     return template_or_json({
         projects => [ (@projects) ],

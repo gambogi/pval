@@ -26,6 +26,15 @@ has memcached => (
     lazy => 1,
 );
 
+sub uuid_to_committee {
+    my $self = shift;
+    my $uuid = shift;
+
+    my $committee_name = $self->_fetch_from_ldap("entryUUID=$uuid", [ qw/cn/ ])->[0];
+    die "Cannot find $uuid in LDAP" unless $committee_name;
+    return $committee_name;
+}
+
 sub uuid_to_user {
     my $self = shift;
     my $uuid = shift;
