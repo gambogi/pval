@@ -1,0 +1,3 @@
+<div class="row panel user">
+[% PROCESS user_entity.tt user = user %]
+</div>
