@@ -20,29 +20,14 @@ sub user_to_hash {
     my ($ldap_user, $db_user) = @_;
 
     # wtf CSH
-    my $roomnumber = $ldap_user->get('roomNumber');
-    $roomnumber //= [ 0 ];
-
-    my $housing_points = $ldap_user->get('housingPoints');
-    $housing_points //= [ 0 ];
-
-    my $alumni = $ldap_user->get('alumni');
-    $alumni //= [ 0 ];
-
-    my $active = $ldap_user->get('active');
-    $active //= [ 0 ];
-
-    my $onfloor = $ldap_user->get('onfloor');
-    $onfloor //= [ 0 ];
-
     return {
         uid => $ldap_user->get('uid')->[0],
         name => $ldap_user->get('cn')->[0],
-        room => $roomnumber->[0],
-        active => $active->[0],
-        alumni => $alumni->[0],
-        on_floor => $onfloor->[0],
-        housing_points => $housing_points->[0],
+        room => ($ldap_user->get('roomNumber') // [0])->[0],
+        active => ($ldap_user->get('active') // [0])->[0],
+        alumni => ($ldap_user->get('alimni') // [0])->[0],
+        on_floor => ($ldap_user->get('onFloor') // [0])->[0],
+        housing_points => ($ldap_user->get('housingPoints') // [0])->[0]
     };
 }
 
