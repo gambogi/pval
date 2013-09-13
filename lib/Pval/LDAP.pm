@@ -10,6 +10,7 @@ use Dancer::Plugin::LDAP;
 use Data::UUID;
 use Moose;
 use Net::LDAP::Entry;
+use Net::LDAP::Util qw/escape_filter_value/;
 use Pval::Schema::Result::User;
 
 use constant EXPIRY_BASE => 36000;
@@ -49,7 +50,7 @@ sub find_user {
     my $username = shift;
     my $ug = Data::UUID->new;
 
-    my $user = $self->_fetch_from_ldap("uid=$username", [ qw/uid cn entryUUID active alumni housingPoints onfloor roomNumber/ ])->[0];
+    my $user = $self->_fetch_from_ldap("uid=".escape_filter_value($username), [ qw/uid cn entryUUID active alumni housingPoints onfloor roomNumber/ ])->[0];
     die "Cannot find $username in LDAP" unless $user;
     return $user;
 }
