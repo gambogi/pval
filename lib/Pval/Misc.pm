@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use v5.10;
 
-use Dancer;
+use Dancer ':syntax';
 use base 'Exporter';
 
 our @EXPORT = qw/template_or_json/;

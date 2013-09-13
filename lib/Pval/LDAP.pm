@@ -5,7 +5,7 @@ use warnings;
 use v5.10;
 
 use Cache::Memcached::Fast;
-use Dancer;
+use Dancer ':syntax';
 use Dancer::Plugin::LDAP;
 use Data::UUID;
 use Moose;

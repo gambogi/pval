@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use v5.10;
 
-use Dancer;
+use Dancer ':script';
 use Dancer::Plugin::DBIC;
 
 schema->deploy;
