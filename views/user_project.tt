@@ -1,0 +1,5 @@
+[% PROCESS header.tt %]
+[% FOREACH project = projects %]
+[% PROCESS project_entity.tt %]
+[% END %]
+[% PROCESS footer.tt %]

@@ -31,7 +31,7 @@ sub uuid_to_user {
     my $uuid = shift;
 
     my $username = $self->_fetch_from_ldap("entryUUID=$uuid", [ qw/uid cn entryUUID active alumni housingPoints onfloor roomNumber/ ])->[0];
-    die "Cannot fine $uuid in LDAP" unless $username;
+    die "Cannot find $uuid in LDAP" unless $username;
     return $username;
 }
 

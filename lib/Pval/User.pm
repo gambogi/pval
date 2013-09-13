@@ -10,7 +10,7 @@ use Pval::LDAP;
 use Pval::Misc;
 use Try::Tiny;
 
-use base Exporter;
+use base 'Exporter';
 
 our @EXPORT_OK = qw/user_to_hash/;
 
