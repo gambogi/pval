@@ -14,6 +14,24 @@ use Try::Tiny;
 
 prefix '/projects';
 
+get '/incoming' => sub {
+    my $db = schema;
+    my $ldap = Pval::LDAP->new;
+    my @projects;
+
+    @projects = $db->resultset('MajorProject')->search({
+        status => 'pending'
+    }, { prefetch => 'submitter' });
+
+    foreach my $project (@projects) {
+        $project->{user} = user_to_hash($ldap->uuid_to_user($project->submitter->UUID));
+    }
+
+    return template_or_json({
+        projects => [ (@projects) ]
+    }, 'user_project', request->content_type);
+};
+
 get '/:id' => sub {
     my $id  = param 'id';
     my $db = schema;

@@ -45,6 +45,15 @@ __PACKAGE__->add_columns(
         size => 16,
         is_nullable => 0,
     },
+    status => {
+        data_type => 'enum',
+        is_enum => 1,
+        extra => {
+            list => [qw/pending passed failed/],
+        },
+        default => 'pending',
+        is_nullable => 0,
+    },
     timestamp => {
         data_type => 'timestamp',
     },
