@@ -1,6 +1,37 @@
 <!DOCTYPE html>
+<!--[if IE 8]>               <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <html>
-<head>
-    <title>PVAL</title>
-</head>
-<body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>PVAL</title>
+        <link rel="stylesheet" href="/css/foundation.css" />
+        <link rel="stylesheet" href="/css/custom.css"/>
+        <script type="text/js" src="js/vendor/custom.modernizr.js"></script>
+        <link href='//fonts.googleapis.com/css?family=Merriweather+Sans:400,700,800,300'     rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <div id="menu" class="contain-to-grid sticky">
+            <nav class="top-bar">
+                  <ul class="title-area">
+                              <!-- Title Area -->
+                                      <li class="name">
+                                                <h1><a href="#"><img src="/images/csh.png"></img> Eval Database </a></h1>
+                                                            </li>
+                                                                        <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+                                                                                    <li class="toggle-topbar"><a href="#"><span>Menu</span></a></li>
+                                                                                              </ul>
+
+                                                                                                        <section class="top-bar-section">
+                                                                                                                    <!-- Left Nav Section -->
+                                                                                                                                <ul class="left">
+                                                                                                                                                </ul>
+
+                                                                                                                                                            <!-- Right Nav Section -->
+                                                                                                                                                                        <ul class="right">
+                                                                                                                                                                                          <li><a href="#">Home</a></li>
+                                                                                                                                                                                                        <li><a href="">Housing</a></li>
+                                                                                                                                                                                                                    </ul>
+                                                                                                                                                                                                                              </section>
+                                                                                                                                                                                                                              </nav>                                                                                                                                                                                                                          </div>
