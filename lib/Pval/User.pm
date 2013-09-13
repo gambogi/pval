@@ -10,9 +10,13 @@ use Pval::LDAP;
 use Pval::Misc;
 use Try::Tiny;
 
+use base Exporter;
+
+our @EXPORT_OK = qw/user_to_hash/;
+
 prefix '/users';
 
-sub _user_to_hash {
+sub user_to_hash {
     my ($ldap_user, $db_user) = @_;
 
     # wtf CSH
@@ -56,7 +60,7 @@ sub get_user_hash {
         $db->resultset('User')->create({ UUID => $ldap_user->get('entryUUID') });
     }
 
-    return _user_to_hash($ldap_user, $db_user);
+    return user_to_hash($ldap_user, $db_user);
 }
 
 get '/:name' => sub {
@@ -82,7 +86,7 @@ get '/' => sub {
 
     foreach my $active_user (@$active) {
         my $db_user = $db->resultset('User')->search({ UUID=> $active_user->get('entryUUID') });
-        push $users, _user_to_hash($active_user, $db_user);
+        push $users, user_to_hash($active_user, $db_user);
     }
 
     return template_or_json({

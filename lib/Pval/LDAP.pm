@@ -26,6 +26,15 @@ has memcached => (
     lazy => 1,
 );
 
+sub uuid_to_user {
+    my $self = shift;
+    my $uuid = shift;
+
+    my $username = $self->_fetch_from_ldap("entryUUID=$uuid", [ qw/uid cn entryUUID active alumni housingPoints onfloor roomNumber/ ])->[0];
+    die "Cannot fine $uuid in LDAP" unless $username;
+    return $username;
+}
+
 sub find_user {
     my $self = shift;
     my $username = shift;
