@@ -50,7 +50,7 @@ sub get_eval_director {
 sub get_active_users {
     my $self = shift;
 
-    my $ret = $self->_fetch_from_ldap("active=1", [ qw/uid/ ]);
+    my $ret = $self->_fetch_from_ldap("active=1", [ qw/uid cn entryUUID active alumni housingPoints onfloor roomNumber/ ]);
 }
 
 sub _fetch_from_ldap {
