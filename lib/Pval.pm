@@ -12,6 +12,7 @@ use DateTime;
 use Pval::LDAP;
 
 # Other routes
+use Pval::MajorProject;
 use Pval::User;
 
 prefix undef;

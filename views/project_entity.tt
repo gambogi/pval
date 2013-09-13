@@ -1,0 +1,6 @@
+<li>[% project.name | html_entity %]</li>
+<li>[% project.description | html_entity %]</li>
+<li><a href="/users/[% user.uid %]">[% user.cn | html_entity %]</a></li>
+<li>[% project.date | html_entity %]</li>
+<li>[% project.comments | html_entity %]</li>
+<li>[% project.committee | html_entity %]</li>

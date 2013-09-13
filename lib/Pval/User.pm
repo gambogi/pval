@@ -4,10 +4,9 @@ use strict;
 use warnings;
 use v5.10;
 
-use Dancer;
+use Dancer ':syntax';
 use Dancer::Plugin::DBIC;
 use Pval::LDAP;
-use Pval::Schema;
 use Pval::Misc;
 use Try::Tiny;
 
