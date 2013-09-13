@@ -4,17 +4,12 @@ use strict;
 use warnings;
 use v5.10;
 
-use Dancer;
-use Dancer::Plugin::DBIC;
-
 our $VERSION = '0.1';
 
-use Data::UUID;
+use Dancer;
+use Dancer::Plugin::DBIC;
 use DateTime;
 use Pval::LDAP;
-use Pval::Schema;
-use Pval::Schema::Result::Freshman;
-use Pval::Schema::Result::User;
 
 # Other routes
 use Pval::User;
