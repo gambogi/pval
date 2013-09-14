@@ -5,6 +5,7 @@ use warnings;
 use v5.10;
 
 use Dancer ':syntax';
+use Dancer::Plugin::Cache::CHI;
 use Dancer::Plugin::DBIC;
 use Pval::LDAP;
 use Pval::Misc;
@@ -13,6 +14,7 @@ use Pval::Schema;
 use Try::Tiny;
 
 prefix '/projects';
+check_page_cache;
 
 get '/' => sub {
     my $db = schema;
@@ -24,7 +26,7 @@ get '/' => sub {
         $project->committee($ldap->uuid_to_committee($project->committee)->get('cn'));
     }
 
-    return template_or_json({
+    return cache_page template_or_json({
         projects => [ (@projects) ]
     }, 'user_project', request->content_type);
 };
@@ -43,7 +45,7 @@ get '/incoming' => sub {
         $project->committee($ldap->uuid_to_committee($project->committee)->get('cn'));
     }
 
-    return template_or_json({
+    return cache_page template_or_json({
         projects => [ (@projects) ]
     }, 'user_project', request->content_type);
 };
@@ -65,7 +67,7 @@ get '/:id' => sub {
             user => user_to_hash($ldap->uuid_to_user($project->submitter->UUID)),
         }, 'project', request->content_type);
     } else {
-        return template_or_json({
+        return cache_page template_or_json({
             error => "Cannot find project with id $id"
         }, 'error', request->content_type);
     }
@@ -98,7 +100,7 @@ get '/user/:user' => sub {
         $project->committee($ldap->uuid_to_committee($project->committee)->get('cn'));
     }
 
-    return template_or_json({
+    return cache_page template_or_json({
         projects => [ (@projects) ],
         user => user_to_hash($ldap->uuid_to_user($ldap_user->get('entryUUID'))),
     }, 'user_project', request->content_type);

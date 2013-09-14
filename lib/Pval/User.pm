@@ -6,6 +6,7 @@ use v5.10;
 
 use Dancer ':syntax';
 use Dancer::Plugin::DBIC;
+use Dancer::Plugin::Cache::CHI;
 use Pval::LDAP;
 use Pval::Misc;
 use Try::Tiny;
@@ -13,8 +14,6 @@ use Try::Tiny;
 use base 'Exporter';
 
 our @EXPORT_OK = qw/user_to_hash/;
-
-prefix '/users';
 
 sub user_to_hash {
     my ($ldap_user, $db_user) = @_;
@@ -54,6 +53,11 @@ sub get_user_hash {
     return user_to_hash($ldap_user, $db_user);
 }
 
+## Routes
+
+prefix '/users';
+check_page_cache;
+
 get '/:name' => sub {
     my $name = param 'name';
 
@@ -64,7 +68,7 @@ get '/:name' => sub {
         }, 'error', request->content_type);
     }
 
-    return template_or_json({
+    return cache_page template_or_json({
         user => $user
     }, 'user', request->content_type);
 };
@@ -80,7 +84,7 @@ get '/' => sub {
         push $users, user_to_hash($active_user, $db_user);
     }
 
-    return template_or_json({
+    return cache_page template_or_json({
         users => $users,
     }, 'users', request->content_type);
 };

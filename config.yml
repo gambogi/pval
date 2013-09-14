@@ -26,3 +26,11 @@ engines:
     encoding:  "utf8"
     start_tag: "[%"
     end_tag:   "%]"
+
+# We'll assume this is the same for dev and prod
+plugins:
+  'Cache::CHI':
+    driver: 'Memcached'
+    global: 1
+    servers:
+        - 'localhost:11211'
