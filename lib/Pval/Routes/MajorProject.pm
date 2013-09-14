@@ -1,4 +1,4 @@
-package Pval::MajorProject;
+package Pval::Routes::MajorProject;
 
 use strict;
 use warnings;
@@ -9,7 +9,7 @@ use Dancer::Plugin::Cache::CHI;
 use Dancer::Plugin::DBIC;
 use Pval::LDAP;
 use Pval::Misc;
-use Pval::User qw/user_to_hash/;
+use Pval::Routes::User qw/user_to_hash/;
 use Pval::Schema;
 use Try::Tiny;
 

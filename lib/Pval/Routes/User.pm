@@ -1,4 +1,4 @@
-package Pval::User;
+package Pval::Routes::User;
 
 use strict;
 use warnings;

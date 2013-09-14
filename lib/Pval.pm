@@ -13,8 +13,8 @@ use DateTime;
 use Pval::LDAP;
 
 # Other routes
-use Pval::MajorProject;
-use Pval::User;
+use Pval::Routes::MajorProject;
+use Pval::Routes::User;
 
 prefix undef;
 check_page_cache;

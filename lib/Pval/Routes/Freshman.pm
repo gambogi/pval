@@ -1,4 +1,4 @@
-package Pval::Freshman;
+package Pval::Routes::Freshman;
 
 use strict;
 use warnings;
