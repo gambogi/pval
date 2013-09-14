@@ -3,7 +3,7 @@
 [% IF user %]
 <li><a href="/users/[% user.uid | uri %]">[% user.name | html_entity %]</a></li>
 [% ELSE %]
-<li><a href="/users/[% project.user.uid | uri %]">[% project.user.name | html_entity %]</a></li>
+<li><a href="/users/[% project.submitter.uid | uri %]">[% project.submitter.name | html_entity %]</a></li>
 [% END %]
 <li>[% project.date | html_entity %]</li>
 <li>[% project.comments | html_entity %]</li>
