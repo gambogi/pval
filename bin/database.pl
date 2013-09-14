@@ -17,11 +17,13 @@ my $cmd = '';
 my $from_version;
 my $to_version;
 my $version;
+my $database;
 GetOptions(
     'command|cmd|c=s' => \$cmd,
     'from-version=i'  => \$from_version,
     'to-version=i'    => \$to_version,
     'version=i'       => \$version,
+    'database=s'      => \$database,
 );
 
 sub usage {
@@ -42,7 +44,7 @@ my $deployment_handler_dir = './db_upgrades';
 my $dh = DBIx::Class::DeploymentHandler->new(
     {   schema           => $schema,
         script_directory => $deployment_handler_dir,
-        databases        => "SQLite",
+        databases        => $database // "SQLite",
         force_overwrite  => 1,
     });
 

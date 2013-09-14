@@ -1190,18 +1190,18 @@ translator:
   no_comments: 0
   parser_args:
     sources:
-      - EventAttendee
-      - PacketMissingSignature
-      - MajorProject
-      - Conditional
       - Event
-      - User
-      - Freshman
-      - Queue
-      - WinterEval
-      - SpringEval
-      - Roster
       - Packet
+      - MajorProject
+      - Roster
+      - EventAttendee
+      - WinterEval
+      - Queue
+      - Freshman
+      - Conditional
+      - SpringEval
+      - PacketMissingSignature
+      - User
   parser_type: SQL::Translator::Parser::DBIx::Class
   producer_args: {}
   producer_type: SQL::Translator::Producer::YAML
