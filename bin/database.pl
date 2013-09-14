@@ -9,6 +9,7 @@ no warnings 'experimental';
 use v5.14;
 
 use Dancer ':script';
+use Dancer::Config;
 use Dancer::Plugin::DBIC;
 use DBIx::Class::DeploymentHandler;
 use Getopt::Long;
@@ -38,13 +39,19 @@ HERE
     exit(0);
 }
 
+$database //= "SQLite";
+if ($database ne "SQLite") {
+    config->{environment} = 'production';
+    Dancer::Config::load();
+}
+
 my $schema = schema;
 my $deployment_handler_dir = './db_upgrades';
 
 my $dh = DBIx::Class::DeploymentHandler->new(
     {   schema           => $schema,
         script_directory => $deployment_handler_dir,
-        databases        => $database // "SQLite",
+        databases        => $database,
         force_overwrite  => 1,
     });
 
