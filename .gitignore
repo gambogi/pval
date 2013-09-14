@@ -19,3 +19,4 @@ environments/development.yml
 *.swp
 pval.db
 logs
+MYMETA.*

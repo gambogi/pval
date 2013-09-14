@@ -1,0 +1,34 @@
+# configuration file for production environment
+
+# only log warning and error messsages
+log: "warning"
+
+# log message to a file in logs/
+logger: "file"
+
+# don't consider warnings critical
+warnings: 0
+
+# hide errors 
+show_errors: 0
+
+# cache route resolution for maximum performance
+route_cache: 1
+
+plugins:
+  DBIC:
+    default:
+      dsn: dbi:Pg:dbname=pval;host=db
+      schema_class: Pval::Schema
+      username: pval
+      password: PASSWORD
+      options:
+        quote_names: true
+        AutoCommit: 1
+        PrintError: 0
+        RaiseError: 1
+  LDAP:
+    uri: ldap://ldap
+    base: ou=Users,dc=csh,dc=rit,dc=edu
+    bind: cn=pval,ou=Apps,dc=csh,dc=rit,dc=edu
+    password: PASSWORD
