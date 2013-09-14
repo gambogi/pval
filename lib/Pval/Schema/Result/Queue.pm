@@ -7,7 +7,7 @@ use v5.10;
 use Moose;
 
 extends 'DBIx::Class::Core';
-__PACKAGE__->load_components('InflateColumn::DateTime');
+__PACKAGE__->load_components(qw/InflateColumn::DateTime Helper::Row::ToJSON/);
 __PACKAGE__->table('queue');
 __PACKAGE__->add_columns(
     id => {

@@ -7,7 +7,7 @@ use v5.10;
 use Moose;
 
 extends 'DBIx::Class::Core';
-__PACKAGE__->load_components(qw/InflateColumn::DateTime InflateColumn::Object::Enum/);
+__PACKAGE__->load_components(qw/InflateColumn::DateTime InflateColumn::Object::Enum Helper::Row::ToJSON/);
 __PACKAGE__->table('conditionals');
 __PACKAGE__->add_columns(
     id => {
