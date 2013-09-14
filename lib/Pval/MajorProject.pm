@@ -16,14 +16,28 @@ use Try::Tiny;
 prefix '/projects';
 check_page_cache;
 
+sub project_to_json {
+    my $project = shift;
+
+    my $ldap = Pval::LDAP->new;
+    my $user = user_to_hash($ldap->uuid_to_user($project->submitter->UUID));
+    $project = $project->TO_JSON;
+
+    $project->{committee} = $ldap->uuid_to_committee($project->{committee})->get('cn')->[0];
+    $project->{submitter} = $user;
+    $project->{status} = $project->{status}->value;
+    $project->{date} = $project->{date}->datetime;
+
+    return $project;
+}
+
 get '/' => sub {
     my $db = schema;
     my $ldap = Pval::LDAP->new;
     my @projects = $db->resultset('MajorProject')->all;
 
     foreach my $project (@projects) {
-        $project->{user} = user_to_hash($ldap->uuid_to_user($project->submitter->UUID));
-        $project->committee($ldap->uuid_to_committee($project->committee)->get('cn'));
+        $project = project_to_json $project;
     }
 
     return cache_page template_or_json({
@@ -38,11 +52,10 @@ get '/incoming' => sub {
 
     @projects = $db->resultset('MajorProject')->search({
         status => 'pending'
-    }, { prefetch => 'submitter' });
+    }, { prefetch => 'submitter', });
 
     foreach my $project (@projects) {
-        $project->{user} = user_to_hash($ldap->uuid_to_user($project->submitter->UUID));
-        $project->committee($ldap->uuid_to_committee($project->committee)->get('cn'));
+        $project = project_to_json $project;
     }
 
     return cache_page template_or_json({
@@ -61,7 +74,7 @@ get '/:id' => sub {
     };
 
     if (defined $project) {
-        $project->committee($ldap->uuid_to_committee($project->committee)->get('cn'));
+        $project = project_to_json $project;
         return template_or_json({
             project => $project,
             user => user_to_hash($ldap->uuid_to_user($project->submitter->UUID)),
@@ -97,7 +110,7 @@ get '/user/:user' => sub {
     });
 
     foreach my $project (@projects) {
-        $project->committee($ldap->uuid_to_committee($project->committee)->get('cn'));
+        $project = project_to_json $project;
     }
 
     return cache_page template_or_json({

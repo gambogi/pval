@@ -26,6 +26,9 @@ engines:
     encoding:  "utf8"
     start_tag: "[%"
     end_tag:   "%]"
+  JSON:
+    allow_blessed: 1
+    convert_blessed: 1
 
 # We'll assume this is the same for dev and prod
 plugins:
