@@ -4,28 +4,14 @@ use strict;
 use warnings;
 use v5.10;
 
-use Cache::Memcached::Fast;
 use Dancer ':syntax';
+use Dancer::Plugin::Cache::CHI;
 use Dancer::Plugin::LDAP;
 use Data::UUID;
 use Moose;
 use Net::LDAP::Entry;
 use Net::LDAP::Util qw/escape_filter_value/;
 use Pval::Schema::Result::User;
-
-use constant EXPIRY_BASE => 36000;
-use constant RAND_EXPIRY_MAX => 3600;
-
-has memcached => (
-    is => 'ro',
-    isa => 'Cache::Memcached::Fast',
-    default => sub {
-        return Cache::Memcached::Fast->new({
-            servers => [ qw/127.0.0.1:11211/ ],
-        });
-    },
-    lazy => 1,
-);
 
 sub uuid_to_committee {
     my $self = shift;
@@ -77,7 +63,7 @@ sub _fetch_from_ldap {
 
     $base //= 'dc=csh,dc=rit,dc=edu';
 
-    my $ret = $self->memcached->get($query);
+    my $ret = cache_get $query;
     return $ret if defined $ret;
 
     $ret = [ (ldap->search(
@@ -87,7 +73,7 @@ sub _fetch_from_ldap {
     )->entries()) ];
 
     # The longest possibly cache time is about eleven hours. The expiry is staggered
-    $self->memcached->set($query, $ret, EXPIRY_BASE + int(rand(RAND_EXPIRY_MAX))) if defined $ret;
+    cache_set $query, $ret if defined $ret;
 
     return $ret;
 }
