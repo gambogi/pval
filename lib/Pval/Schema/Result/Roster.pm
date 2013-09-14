@@ -24,6 +24,7 @@ __PACKAGE__->add_columns(
     date => {
         data_type => 'date',
         is_nullable => 0,
+        default_value => \'CURRENT_DATE',
     },
     room => {
         data_type => 'integer',
@@ -32,6 +33,7 @@ __PACKAGE__->add_columns(
     },
     timestamp => {
         data_type => 'timestamp',
+        default_value => \'CURRENT_TIMESTAMP',
     },
 );
 

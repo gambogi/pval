@@ -24,6 +24,7 @@ __PACKAGE__->add_columns(
     date => {
         data_type => 'datetime',
         is_nullable => 1,
+        default => \'CURRENT_DATE',
     },
     presenter => {
         data_type => 'integer',
@@ -44,6 +45,7 @@ __PACKAGE__->add_columns(
     },
     timestamp => {
         data_type => 'timestamp',
+        default => \'CURRENT_TIMESTAMP',
     },
 );
 

@@ -13,16 +13,6 @@ use Net::LDAP::Entry;
 
 extends 'DBIx::Class::Core';
 
-has username => (
-    is => 'rw',
-    isa => 'Str',
-);
-
-has ldap_object => (
-    is => 'rw',
-    isa => 'Net::LDAP::Entry'
-);
-
 __PACKAGE__->table('users');
 __PACKAGE__->add_columns(
     'id' => {
@@ -43,7 +33,7 @@ __PACKAGE__->add_columns(
     },
     'timestamp' => {
         data_type => 'timestamp',
-        default_value => \'now',
+        default_value => \'CURRENT_TIMESTAMP',
     },
 );
 

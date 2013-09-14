@@ -34,6 +34,7 @@ __PACKAGE__->add_columns(
     date => {
         data_type => 'datetime',
         is_nullable => 0,
+        default_value => \'CURRENT_TIMESTAMP',
     },
     comments => {
         data_type => 'varchar',
@@ -56,6 +57,7 @@ __PACKAGE__->add_columns(
     },
     timestamp => {
         data_type => 'timestamp',
+        default_value => \'CURRENT_TIMESTAMP',
     },
 );
 

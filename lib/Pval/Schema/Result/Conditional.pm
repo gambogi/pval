@@ -24,7 +24,7 @@ __PACKAGE__->add_columns(
     created => {
         data_type => 'date',
         is_nullable => 0,
-        default => 'TODAY();',
+        default => \'CURRENT_DATE',
     },
     status => {
         data_type => 'enum',
@@ -40,6 +40,7 @@ __PACKAGE__->add_columns(
     },
     timestamp => {
         data_type => 'timestamp',
+        default => \'CURRENT_TIMESTAMP',
     },
 );
 

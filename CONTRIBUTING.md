@@ -3,7 +3,7 @@
 * Get [perlbrew](http://perlbrew.pl/) and build and install a perl.
 * Pull down the git repo
 * `cpanm --installdeps .`
-* `perl bin/deploy.pl` - this will set up a schema for your dev database
+* `perl bin/database.pl --cmd install` - this will set up a schema for your dev database
 * `perl bin/app.pl` - this will start the app up on port 3000
 
 # Where do I make pull requests?
@@ -34,3 +34,12 @@ merge in features requiring schema changes.
 
 I don't care. I deploy with perlbrew so I frankly don't give a fuck about how
 many deps this has. You do you.
+
+# How do I change the database?
+
+* You need to make a migration. First, make your schema changes in
+`Pval/Schema/*`
+* Bump the version number in `Pval/Schema.pm`
+* Prepare the transaction `bin/database.pl --cmd prepare --version x`
+* Prepare the upgrade `bin/database.pl --cmd prepare --from-version y --to-version x`
+* Execute the upgrade `bin/database.pl --cmd upgrade`

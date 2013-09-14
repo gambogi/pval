@@ -33,6 +33,7 @@ __PACKAGE__->add_columns(
     vote_date => {
         data_type => 'date',
         is_nullable => 0,
+        default_value => \'CURRENT_DATE',
     },
     comments => {
         data_type => 'varchar',
@@ -42,6 +43,7 @@ __PACKAGE__->add_columns(
     ten_week => {
         data_type => 'date',
         is_nullable => 0,
+        default_value => \'CURRENT_DATE',
     },
     passed_freshman_project => {
         data_type => 'integer',
@@ -65,7 +67,7 @@ __PACKAGE__->add_columns(
     },
     timestamp => {
         data_type => 'timestamp',
-        default_value => \'now',
+        default => \'CURRENT_TIMESTAMP',
     },
 );
 

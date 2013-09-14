@@ -34,9 +34,11 @@ __PACKAGE__->add_columns(
     },
     date => {
         data_type => 'date',
+        default_value => \'CURRENT_DATE',
     },
     timestamp => {
         data_type => 'timestamp',
+        default_value => \'CURRENT_TIMESTAMP',
     },
 );
 

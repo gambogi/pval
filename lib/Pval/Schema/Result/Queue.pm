@@ -24,7 +24,7 @@ __PACKAGE__->add_columns(
     date_added => {
         data_type => 'datetime',
         is_nullable => 0,
-        default => \'now();',
+        default_value => \'CURRENT_DATE',
     },
     filled => {
         data_type => 'tinyint',
@@ -34,6 +34,7 @@ __PACKAGE__->add_columns(
     },
     timestamp => {
         data_type => 'timestamp',
+        default_value => \'CURRENT_TIMESTAMP',
     },
 );
 

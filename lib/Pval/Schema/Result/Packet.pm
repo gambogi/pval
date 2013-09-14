@@ -24,14 +24,16 @@ __PACKAGE__->add_columns(
     given => {
         data_type => 'date',
         is_nullable => 0,
+        default_value => \'CURRENT_DATE',
     },
     due => {
         data_type => 'date',
         is_nullable => 0,
+        default_value => \'CURRENT_DATE',
     },
     timestamp => {
         data_type => 'timestamp',
-        default_value => \'now',
+        default_value => \'CURRENT_TIMESTAMP',
     },
 );
 
