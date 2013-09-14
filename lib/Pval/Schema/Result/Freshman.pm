@@ -75,6 +75,15 @@ __PACKAGE__->set_primary_key('id');
 __PACKAGE__->belongs_to('user' => 'Pval::Schema::Result::User');
 __PACKAGE__->has_many('packets' => 'Pval::Schema::Result::Packet', 'id');
 
+sub sqlt_deploy_hook {
+    my ($self, $sqlt_table) = @_;
+
+    $sqlt_table->add_index(name => 'freshmen_name_idx', fields => ['name']);
+    $sqlt_table->add_index(name => 'freshmen_vote_date_idx', fields => ['vote_date']);
+    $sqlt_table->add_index(name => 'freshmen_ten_week_idx', fields => ['ten_week']);
+    $sqlt_table->add_index(name => 'freshmen_result_idx', fields => ['result']);
+}
+
 sub create_account {
     my ($self, $uid) = @_;
     my $db = schema;

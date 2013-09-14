@@ -48,4 +48,10 @@ __PACKAGE__->has_many('spring_evals' => 'Pval::Schema::Result::SpringEval', 'use
 __PACKAGE__->has_many('winter_evals' => 'Pval::Schema::Result::WinterEval', 'user');
 __PACKAGE__->has_many('rosters' => 'Pval::Schema::Result::Roster', 'user');
 
+sub sqlt_deploy_hook {
+    my ($self, $sqlt_table) = @_;
+
+    $sqlt_table->add_index(name => 'user_uuid_idx', fields => ['UUID']);
+}
+
 1;
