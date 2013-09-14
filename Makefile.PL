@@ -20,6 +20,7 @@ WriteMakefile(
         'Data::UUID'                                => 0,
         'DateTime'                                  => 0,
         'DBIx::Class'                               => 0,
+        'DBIx::Class::Helper::Row::ToJSON'          => 0,
         'DBIx::Class::InflateColumn::Object::Enum'  => 0,
         'HTML::Entities'                            => 0,
         'Memcached::libmemcached'                   => 0,
