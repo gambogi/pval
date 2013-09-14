@@ -23,7 +23,7 @@ __PACKAGE__->add_columns(
     },
     'UUID' => {
         data_type => 'varchar',
-        size => 32,
+        size => 37,
         is_nullable => 0,
     },
     'freshman' => {
