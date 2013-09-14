@@ -22,8 +22,8 @@ __PACKAGE__->add_columns(
         is_auto_increment => 1,
     },
     'UUID' => {
-        data_type => 'binary',
-        size => 16,
+        data_type => 'varchar',
+        size => 32,
         is_nullable => 0,
     },
     'freshman' => {
