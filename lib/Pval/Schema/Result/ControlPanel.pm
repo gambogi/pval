@@ -18,15 +18,15 @@ __PACKAGE__->add_columns(
     },
     fall_form => {
         data_type => 'boolean',
-        is_nullable => 0,
+        is_nullable => 1,
     },
     winter_form => {
         data_type => 'boolean',
-        is_nullable => 0,
+        is_nullable => 1,
     },
     spring_form => {
         data_type => 'boolean',
-        is_nullable => 0,
+        is_nullable => 1,
     },
 );
 

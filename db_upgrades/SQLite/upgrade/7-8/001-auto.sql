@@ -6,9 +6,9 @@ BEGIN;
 ;
 CREATE TABLE control_panel (
   id INTEGER PRIMARY KEY NOT NULL,
-  fall_form boolean NOT NULL,
-  winter_form boolean NOT NULL,
-  spring_form boolean NOT NULL
+  fall_form boolean,
+  winter_form boolean,
+  spring_form boolean
 );
 
 ;
