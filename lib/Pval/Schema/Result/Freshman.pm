@@ -20,11 +20,6 @@ __PACKAGE__->add_columns(
         is_nullable => 0,
         is_auto_increment => 1,
     },
-    user => {
-        data_type => 'integer',
-        size => 16,
-        is_nullable => 1,
-    },
     name => {
         data_type => 'varchar',
         size => 1024,
@@ -72,7 +67,7 @@ __PACKAGE__->add_columns(
 );
 
 __PACKAGE__->set_primary_key('id');
-__PACKAGE__->belongs_to('user' => 'Pval::Schema::Result::User');
+__PACKAGE__->belongs_to('user' => 'Pval::Schema::Result::User', { 'foreign.freshman' => 'self.id' });
 __PACKAGE__->has_many('packets' => 'Pval::Schema::Result::Packet', 'id');
 
 sub sqlt_deploy_hook {

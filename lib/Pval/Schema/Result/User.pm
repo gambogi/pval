@@ -14,6 +14,7 @@ use Net::LDAP::Entry;
 extends 'DBIx::Class::Core';
 
 __PACKAGE__->table('users');
+__PACKAGE__->load_components(qw/InflateColumn::DateTime Helper::Row::ToJSON/);
 __PACKAGE__->add_columns(
     'id' => {
         data_type => 'integer',
