@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Sun Sep 15 13:54:00 2013
+-- Created on Sun Sep 15 14:37:38 2013
 -- 
 
 ;
@@ -10,9 +10,9 @@ BEGIN TRANSACTION;
 --
 CREATE TABLE control_panel (
   id INTEGER PRIMARY KEY NOT NULL,
-  fall_form boolean,
-  winter_form boolean,
-  spring_form boolean
+  fall_form boolean NOT NULL DEFAULT 0,
+  winter_form boolean NOT NULL DEFAULT 0,
+  spring_form boolean NOT NULL DEFAULT 0
 );
 --
 -- Table: freshmen
