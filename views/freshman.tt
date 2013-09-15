@@ -1,5 +1,5 @@
 [% PROCESS header.tt %]
-<ul>
+<div class="row panel freshman"><ul>
 <li>[% freshman.name | html_entity %]</li>
 <li>[% freshman.comments | html_entity %]</li>
 <li>[% freshman.vote_date %]</li>
@@ -34,5 +34,5 @@
     </ul>
 [% END %]
 
-</ul>
+</ul></div>
 [% PROCESS footer.tt %]

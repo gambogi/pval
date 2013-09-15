@@ -1,10 +1,10 @@
 [% PROCESS header.tt %]
 [% FOREACH freshman = freshmen %]
-<ul>
+<div class="row panel freshmen"><ul>
 <li><a href="/freshmen/[% freshman.id | uri %]">[% freshman.name | html_entity %]</a></li>
 <li>Vote date: [% freshman.vote_date | html_entity %]</li>
 <li>Ten week: [% freshman.ten_week | html_entity %]</li>
 <li>Result: [% freshman.result | html_entity %]</li>
-</ul>
+</ul></div>
 [% END %]
 [% PROCESS footer.tt %]
