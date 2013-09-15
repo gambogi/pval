@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Sun Sep 15 12:32:52 2013
+-- Created on Sun Sep 15 13:45:35 2013
 -- 
 
 ;
@@ -14,9 +14,6 @@ CREATE TABLE control_panel (
   winter_form boolean NOT NULL,
   spring_form boolean NOT NULL
 );
-CREATE INDEX control_panel_fall_form_idx ON control_panel (fall_form);
-CREATE INDEX control_panel_winter_form_idx ON control_panel (winter_form);
-CREATE INDEX control_panel_spring_form_idx ON control_panel (spring_form);
 --
 -- Table: freshmen
 --

@@ -161,22 +161,7 @@ schema:
           order: 3
           size:
             - 0
-      indices:
-        - fields:
-            - fall_form
-          name: control_panel_fall_form_idx
-          options: []
-          type: NORMAL
-        - fields:
-            - winter_form
-          name: control_panel_winter_form_idx
-          options: []
-          type: NORMAL
-        - fields:
-            - spring_form
-          name: control_panel_spring_form_idx
-          options: []
-          type: NORMAL
+      indices: []
       name: control_panel
       options: []
       order: 1
@@ -1383,20 +1368,20 @@ translator:
   no_comments: 0
   parser_args:
     sources:
-      - ControlPanel
-      - PacketMissingSignature
-      - MajorProject
-      - Freshman
       - EventAttendee
-      - WinterEval
-      - Event
-      - Conditional
-      - Queue
+      - PacketMissingSignature
+      - ControlPanel
       - SpringEval
-      - Roster
       - User
-      - Packet
+      - Queue
+      - WinterEval
+      - Roster
+      - Event
       - FreshmenMissingSignature
+      - MajorProject
+      - Packet
+      - Conditional
+      - Freshman
   parser_type: SQL::Translator::Parser::DBIx::Class
   producer_args: {}
   producer_type: SQL::Translator::Producer::YAML
