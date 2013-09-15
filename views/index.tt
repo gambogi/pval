@@ -3,7 +3,7 @@
 	<div id="main" class="row ">
 		<div class="large-8 push-4 columns">
 			<div class="row panel">
-				<h3>Bitch mofo Major Project Form</h3>
+				<h3>Major Project Form</h3>
 				<form>
         			<input type="text" placeholder="Title">
         			<textarea placeholder="Description"></textarea>
