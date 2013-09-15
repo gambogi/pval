@@ -15,21 +15,61 @@ check_page_cache;
 
 sub freshman_to_json {
     my $freshman = shift;
+    my $deep = shift; #Check to see if we need to do all of the packet stuff
+
     my $user = undef;
+    my $packets = [];
 
-    if ($freshman->user) {
+    if ($deep) {
         my $ldap = Pval::LDAP->new;
-        $user = $freshman->user;
+        if ($freshman->user) {
+            $user = $freshman->user;
 
-        my $ldap_user = $ldap->uuid_to_user($user->UUID);
-        $user = Pval::Routes::User::user_to_hash $ldap_user, $user;
+            my $ldap_user = $ldap->uuid_to_user($user->UUID);
+            $user = Pval::Routes::User::user_to_hash $ldap_user, $user;
+        }
+
+        foreach my $packet ($freshman->packets->all) {
+            my $missing_signatures = [];
+            my $missing_freshmen_signatures = [];
+
+            foreach my $sig ($packet->missing_signatures->all) {
+                my $signature = {};
+                $signature->{cn} = $ldap->uuid_to_user($sig->UUID)->get('cn')->[0];
+                $signature->{uid} = $ldap->uuid_to_user($sig->UUID)->get('uid')->[0];
+                push $missing_signatures, $signature;
+            }
+
+            foreach my $sig ($packet->freshmen_missing_signatures->all) {
+                my $signature = {};
+                $signature->{name} = $sig->name;
+                $signature->{id} = $sig->id;
+                push $missing_freshmen_signatures, $signature;
+            }
+
+            $packet = $packet->TO_JSON;
+            $packet->{given} = $packet->{given}->mdy;
+            $packet->{due} = $packet->{due}->mdy;
+            $packet->{missing_signatures} = $missing_signatures;
+            $packet->{num_missing} = @$missing_signatures;
+
+            $packet->{missing_freshmen_signatures} = $missing_freshmen_signatures;
+            $packet->{num_freshmen_missing} = @$missing_freshmen_signatures;
+            delete $packet->{user};
+
+            push $packets, $packet;
+        }
     }
 
     $freshman = $freshman->TO_JSON;
-    $freshman->{user} = $user;
     $freshman->{ten_week} = $freshman->{ten_week}->mdy;
     $freshman->{vote_date} = $freshman->{vote_date}->mdy;
     $freshman->{result} = $freshman->{result}->value;
+
+    if ($deep) {
+        $freshman->{user} = $user;
+        $freshman->{packets} = $packets;
+    }
 
     return $freshman;
 }
@@ -55,8 +95,7 @@ get '/:id' => sub {
         prefetch => [ qw/packets/ ],
     });
 
-    my $user = undef;
-    $freshman = freshman_to_json $freshman;
+    $freshman = freshman_to_json $freshman, 1;
 
     return cache_page template_or_json {
         freshman => $freshman,

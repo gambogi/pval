@@ -35,11 +35,26 @@ __PACKAGE__->add_columns(
         data_type => 'timestamp',
         default_value => \'CURRENT_TIMESTAMP',
     },
+    missing_alumni => {
+        data_type => 'integer',
+        size => 8,
+        is_nullable => 1,
+    },
 );
 
 __PACKAGE__->set_primary_key('id');
 __PACKAGE__->belongs_to('user' => 'Pval::Schema::Result::Freshman');
 __PACKAGE__->has_many('packet_missing_signatures' => 'Pval::Schema::Result::PacketMissingSignature', 'packet');
 __PACKAGE__->many_to_many('missing_signatures' => 'packet_missing_signatures', 'missing_signature');
+
+__PACKAGE__->has_many('freshmen_packet_missing_signatures' => 'Pval::Schema::Result::FreshmenMissingSignature', 'packet');
+__PACKAGE__->many_to_many('freshmen_missing_signatures' => 'freshmen_packet_missing_signatures', 'freshmen_missing_signature');
+
+sub sqlt_deploy_hook {
+    my ($self, $sqlt_table) = @_;
+
+    $sqlt_table->add_index(name => 'packet_given_idx', fields => ['given']);
+    $sqlt_table->add_index(name => 'packet_due_idx', fields => ['due']);
+}
 
 1;
