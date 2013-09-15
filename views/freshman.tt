@@ -1,0 +1,17 @@
+[% PROCESS header.tt %]
+<ul>
+<li>[% freshman.name | html_entity %]</li>
+<li>[% freshman.comments | html_entity %]</li>
+<li>[% freshman.vote_date | html_entity %]</li>
+<li>[% freshman.ten_week | html_entity %]</li>
+<li>[% freshman.passed_freshman_project | html_entity %]</li>
+<li>[% freshman.freshman_project_comments | html_entity %]</li>
+<li>[% freshman.result | html_entity %]</li>
+
+[% IF freshman.user %]
+<li>Account: <a href="/users/[% freshman.user.uid | uri %]">[% freshman.user.uid | html_entity %]</a></li>
+<li>
+[% END %]
+
+</ul>
+[% PROCESS footer.tt %]
