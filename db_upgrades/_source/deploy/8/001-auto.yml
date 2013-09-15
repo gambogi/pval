@@ -123,7 +123,7 @@ schema:
         fall_form:
           data_type: boolean
           default_value: ~
-          is_nullable: 0
+          is_nullable: 1
           is_primary_key: 0
           is_unique: 0
           name: fall_form
@@ -144,7 +144,7 @@ schema:
         spring_form:
           data_type: boolean
           default_value: ~
-          is_nullable: 0
+          is_nullable: 1
           is_primary_key: 0
           is_unique: 0
           name: spring_form
@@ -154,7 +154,7 @@ schema:
         winter_form:
           data_type: boolean
           default_value: ~
-          is_nullable: 0
+          is_nullable: 1
           is_primary_key: 0
           is_unique: 0
           name: winter_form
@@ -1368,20 +1368,20 @@ translator:
   no_comments: 0
   parser_args:
     sources:
-      - EventAttendee
-      - PacketMissingSignature
-      - ControlPanel
-      - SpringEval
-      - User
-      - Queue
-      - WinterEval
-      - Roster
-      - Event
-      - FreshmenMissingSignature
-      - MajorProject
-      - Packet
-      - Conditional
       - Freshman
+      - Roster
+      - Queue
+      - PacketMissingSignature
+      - User
+      - FreshmenMissingSignature
+      - WinterEval
+      - EventAttendee
+      - Packet
+      - MajorProject
+      - Conditional
+      - ControlPanel
+      - Event
+      - SpringEval
   parser_type: SQL::Translator::Parser::DBIx::Class
   producer_args: {}
   producer_type: SQL::Translator::Producer::YAML
