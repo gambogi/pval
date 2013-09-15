@@ -18,23 +18,18 @@ __PACKAGE__->add_columns(
     },
     fall_form => {
         data_type => 'boolean',
+        is_nullable => 0,
     },
     winter_form => {
         data_type => 'boolean',
+        is_nullable => 0,
     },
     spring_form => {
         data_type => 'boolean',
+        is_nullable => 0,
     },
 );
 
 __PACKAGE__->set_primary_key('id');
-
-sub sqlt_deploy_hook {
-    my ($self, $sqlt_table) = @_;
-
-    $sqlt_table->add_index(name => 'control_panel_fall_form_idx', fields => ['fall_form']);
-    $sqlt_table->add_index(name => 'control_panel_winter_form_idx', fields => ['winter_form']);
-    $sqlt_table->add_index(name => 'control_panel_spring_form_idx', fields => ['spring_form']);
-}
 
 1;

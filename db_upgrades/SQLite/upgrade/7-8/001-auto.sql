@@ -12,15 +12,6 @@ CREATE TABLE control_panel (
 );
 
 ;
-CREATE INDEX control_panel_fall_form_idx ON control_panel (fall_form);
-
-;
-CREATE INDEX control_panel_winter_form_idx ON control_panel (winter_form);
-
-;
-CREATE INDEX control_panel_spring_form_idx ON control_panel (spring_form);
-
-;
 
 COMMIT;
 
