@@ -1,0 +1,13 @@
+[% PROCESS header.tt %]
+[% IF committee %]
+<h2>[% committee | html_entity %]</h2>
+[% END %]
+[% FOREACH meeting = meetings %]
+<h3>[% meeting.name | html_entity %]</h3> <!-- This should be clickable but I'm mad lazy right now, and it's non-trivial -->
+<!-- Matt - Go crazy -->
+<ul>
+<li>Date: [% meeting.date %]</li>
+<li>Presenter: <a href="/users/[% meeting.presenter.uid | uri %]">[% meeting.presenter.name | html_entity %]</a></li>
+</ul>
+[% END %]
+[% PROCESS footer.tt %]
