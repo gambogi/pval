@@ -11,58 +11,101 @@ use Pval::Misc;
 
 check_page_cache;
 
-get '/meetings/house/' => sub {
+sub aggregate_routes {
+    my ($type, $year) = @_;
     my $db = schema;
+    my $dtf = schema->storage->datetime_parser;
 
-    # I don't like house meetings
-    my @worthless_piles_of_shit = $db->resultset('Event')->search({
-        type => 'house_meeting'
+    unless (valid_year $year) {
+        return cache_page template_or_json {
+            error => "Invalid year $year"
+        }, 'error', request->content_type;
+    }
+
+    my @events = $db->resultset('Event')->search({
+        type => $type,
+        date => {
+            -between => [ map { $dtf->format_datetime($_) } year_to_dates $year ],
+        },
     });
 
     return cache_page template_or_json {
-        meetings => [ map { $_->json } @worthless_piles_of_shit ],
+        meetings => [ map { $_->json } @events ],
     }, 'meetings', request->content_type;
-};
+}
 
-get '/meetings/house/:id' => sub {
+sub single_routes {
+    my ($type, $id) = @_;
     my $db = schema;
 
-    my $waste_of_time = $db->resultset('Event')->search({
-        type => 'house_meeting',
-        id => param 'id',
+    my $event = $db->resultset('Event')->search({
+        type => $type,
+        id => $id,
     })->single;
 
-    unless ($waste_of_time) {
+    unless ($event) {
         return cache_page template_or_json {
-            error => "Can't find house meeting id ".param 'id',
+            error => "Can't find social event with id $id",
         }, 'error', request->content_type;
     }
 
     return cache_page template_or_json {
-        meeting => $waste_of_time->json(1),
+        meeting => $event->json(1),
     }, 'meeting', request->content_type;
-};
 
-get '/meetings/:committee' => sub {
+}
+
+sub committee_aggregate_routes {
+    my ($committee_name, $year) = @_;
     my $db = schema;
     my $ldap = Pval::LDAP->new;
+    my $dtf = schema->storage->datetime_parser;
 
-    my $committee = $ldap->committee_to_uuid(param 'committee');
+    unless (valid_year $year) {
+        return cache_page template_or_json {
+            error => "Invalid year $year"
+        }, 'error', request->content_type;
+    }
+
+    my $committee = $ldap->committee_to_uuid($committee_name);
     unless (defined $committee) {
         return cache_page template_or_json {
-            error => "Can't find ".param('committee')." in LDAP",
+            error => "Can't find $committee_name in LDAP",
         }, 'error', request->content_type;
     }
 
     my @meetings = $db->resultset('Event')->search({
         type => "meeting",
         committee => $committee,
+        date => {
+            -between => [ map { $dtf->format_datetime($_) } year_to_dates $year ],
+        },
     });
 
     return cache_page template_or_json {
         meetings => [ map { $_->json } @meetings ],
         committee => param 'committee',
     }, 'meetings', request->content_type;
+}
+
+get '/meetings/house/' => sub {
+    return aggregate_routes 'house_meeting';
+};
+
+get '/meetings/house/year/:year' => sub {
+    return aggregate_routes 'house_meeting', param 'year';
+};
+
+get '/meetings/house/:id' => sub {
+    return single_routes 'house_meeting', param 'id';
+};
+
+get '/meetings/:committee' => sub {
+    return committee_aggregate_routes param 'committee';
+};
+
+get '/meetings/:committee/year/:year' => sub {
+    return committee_aggregate_routes param 'committee', param 'year';
 };
 
 get '/meetings/:committee/:id' => sub {
@@ -94,65 +137,27 @@ get '/meetings/:committee/:id' => sub {
 };
 
 get '/seminars/' => sub {
-    my $db = schema;
+    return aggregate_routes 'technical';
+};
 
-    my @seminars = $db->resultset('Event')->search({ 
-        type => 'technical'
-    });
-
-    return cache_page template_or_json {
-        meetings => [ map { $_->json } @seminars ],
-    }, 'meetings', request->content_type;
+get '/seminars/year/:year' => sub {
+    return aggregate_routes 'technical', param 'year';
 };
 
 get '/seminars/:id' => sub {
-    my $db = schema;
-
-    my $seminar = $db->resultset('Event')->search({
-        id => param 'id',
-        type => 'technical',
-    })->single;
-
-    unless ($seminar) {
-        return cache_page template_or_json {
-            error => "Can't find seminar id ".param 'id',
-        }, 'error', request->content_type;
-    }
-
-    return cache_page template_or_json {
-        meeting => $seminar->json(1),
-    }, 'meeting', request->content_type;
+    return single_routes 'technical', param 'id';
 };
 
 get '/events/' => sub {
-    my $db = schema;
+    return aggregate_routes 'social';
+};
 
-    my @social = $db->resultset('Event')->search({
-        type => 'social'
-    });
-
-    return cache_page template_or_json {
-        meetings => [ map { $_->json } @social ],
-    }, 'meetings', request->content_type;
+get '/events/year/:year' => sub {
+    return aggregate_routes 'social', param 'year';
 };
 
 get '/events/:id' => sub {
-    my $db = schema;
-
-    my $social = $db->resultset('Event')->search({
-        type => 'social',
-        id => param 'id',
-    })->single;
-
-    unless ($social) {
-        return cache_page template_or_json {
-            error => "Can't find social event with id ".param 'id',
-        }, 'error', request->content_type;
-    }
-
-    return cache_page template_or_json {
-        meeting => $social->json(1),
-    }, 'meeting', request->content_type;
+    return single_routes 'social', param 'id';
 };
 
 1;
