@@ -11,15 +11,25 @@
 				<a href="#" class="button radius">Submit</a>
 			</div>
 
+       [% IF winter_eval_form %]
 			<div class="row panel">
 				<h3>Winter Eval Form</h3>
-				This should be toggleable by the eval director
+			
+                This should be toggleable by the eval director
 			</div>
+       [% END %]
+
+       [% IF fall_eval_form %]
 			<div class="row panel">
 				<h3>Fall Eval Form</h3>
 				This should be toggleable by the eval director
 			</div>
+       [% END %]
+
+
 		</div>
+       
+
 		<div class="large-3 pull-9 columns">
 			<div class="row panel">
                 [% user | html_entity %]
