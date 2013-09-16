@@ -11,7 +11,7 @@ use base 'Exporter';
 use constant MIN_MONTH => 8;
 use constant MAX_MONTH => 6;
 
-our @EXPORT = qw/template_or_json year_to_dates date_to_year validate_year/;
+our @EXPORT = qw/template_or_json year_to_dates date_to_year valid_year/;
 
 sub template_or_json {
     my ($data, $template, $content_type) = @_;
