@@ -4,14 +4,32 @@ use strict;
 use warnings;
 use v5.10;
 
-use Dancer ':moose';
-use Dancer::Plugin::DBIC;
-use Data::UUID;
-use DateTime;
 use Moose;
 use Net::LDAP::Entry;
+use Pval::LDAP;
 
 extends 'DBIx::Class::Core';
+with 'Pval::Roles::JSON';
+
+has ldap_entry => (
+    is => 'rw',
+    isa => 'Net::LDAP::Entry',
+    lazy => 1,
+    builder => '_build_ldap_entry',
+);
+
+sub _build_ldap_entry {
+    my $self = shift;
+    my $ldap = Pval::LDAP->new;
+
+    $ldap->uuid_to_user($self->UUID);
+}
+
+sub json {
+    my $self = shift;
+    my $ldap = Pval::LDAP->new;
+    return $ldap->ldap_to_json($self->ldap_entry);
+}
 
 __PACKAGE__->table('users');
 __PACKAGE__->load_components(qw/InflateColumn::DateTime Helper::Row::ToJSON/);

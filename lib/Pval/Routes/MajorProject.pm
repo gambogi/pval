@@ -9,39 +9,19 @@ use Dancer::Plugin::Cache::CHI;
 use Dancer::Plugin::DBIC;
 use Pval::LDAP;
 use Pval::Misc;
-use Pval::Routes::User qw/user_to_hash/;
 use Pval::Schema;
 use Try::Tiny;
 
 prefix '/projects';
 check_page_cache;
 
-sub project_to_json {
-    my $project = shift;
-
-    my $ldap = Pval::LDAP->new;
-    my $user = user_to_hash($ldap->uuid_to_user($project->submitter->UUID));
-    $project = $project->TO_JSON;
-
-    $project->{committee} = $ldap->uuid_to_committee($project->{committee})->get('cn')->[0];
-    $project->{submitter} = $user;
-    $project->{status} = $project->{status}->value;
-    $project->{date} = $project->{date}->datetime;
-
-    return $project;
-}
-
 get '/' => sub {
     my $db = schema;
     my $ldap = Pval::LDAP->new;
-    my @projects = $db->resultset('MajorProject')->all;
-
-    foreach my $project (@projects) {
-        $project = project_to_json $project;
-    }
+    my @projects = $db->resultset('MajorProject')->search;
 
     return cache_page template_or_json({
-        projects => [ (@projects) ]
+        projects => [ map { $_->json } @projects ]
     }, 'user_project', request->content_type);
 };
 
@@ -54,12 +34,8 @@ get '/incoming' => sub {
         status => 'pending'
     }, { prefetch => 'submitter', });
 
-    foreach my $project (@projects) {
-        $project = project_to_json $project;
-    }
-
     return cache_page template_or_json({
-        projects => [ (@projects) ]
+        projects => [ map { $_->json } @projects ]
     }, 'user_project', request->content_type);
 };
 
@@ -67,17 +43,15 @@ get '/:id' => sub {
     my $id  = param 'id';
     my $db = schema;
     my $project = undef;
-    my $ldap = Pval::LDAP->new;
 
     try {
         $project = $db->resultset('MajorProject')->find({ id => $id });
     };
 
     if (defined $project) {
-        $project = project_to_json $project;
         return template_or_json({
-            project => $project,
-            user => user_to_hash($ldap->uuid_to_user($project->submitter->UUID)),
+            project => $project->json,
+            user => $project->submitter->json,
         }, 'project', request->content_type);
     } else {
         return cache_page template_or_json({
@@ -109,13 +83,9 @@ get '/user/:user' => sub {
         join => 'submitter',
     });
 
-    foreach my $project (@projects) {
-        $project = project_to_json $project;
-    }
-
     return cache_page template_or_json({
-        projects => [ (@projects) ],
-        user => user_to_hash($ldap->uuid_to_user($ldap_user->get('entryUUID'))),
+        projects => [ map { $_->json } @projects ],
+        user => $ldap->ldap_to_json($ldap_user),
     }, 'user_project', request->content_type);
 };
 
