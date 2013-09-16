@@ -10,6 +10,66 @@ use Moose;
 use Pval::LDAP;
 
 extends 'DBIx::Class::Core';
+with 'Pval::Roles::JSON';
+
+sub json {
+    my $self = shift;
+    my $freshman = $self;
+    my $deep = shift; #Check to see if we need to do all of the packet stuff
+
+    my $user = undef;
+    my $packets = [];
+
+    if ($deep) {
+        my $ldap = Pval::LDAP->new;
+        if ($freshman->user) {
+            $user = $freshman->user->json;
+        }
+
+        foreach my $packet ($freshman->packets->all) {
+            my $missing_signatures = [];
+            my $missing_freshmen_signatures = [];
+
+            foreach my $sig ($packet->missing_signatures->all) {
+                my $signature = {};
+                $signature->{cn} = $ldap->uuid_to_user($sig->UUID)->get('cn')->[0];
+                $signature->{uid} = $ldap->uuid_to_user($sig->UUID)->get('uid')->[0];
+                push $missing_signatures, $signature;
+            }
+
+            foreach my $sig ($packet->freshmen_missing_signatures->all) {
+                my $signature = {};
+                $signature->{name} = $sig->name;
+                $signature->{id} = $sig->id;
+                push $missing_freshmen_signatures, $signature;
+            }
+
+            $packet = $packet->TO_JSON;
+            $packet->{given} = $packet->{given}->mdy;
+            $packet->{due} = $packet->{due}->mdy;
+            $packet->{missing_signatures} = $missing_signatures;
+            $packet->{num_missing} = @$missing_signatures;
+
+            $packet->{missing_freshmen_signatures} = $missing_freshmen_signatures;
+            $packet->{num_freshmen_missing} = @$missing_freshmen_signatures;
+            delete $packet->{user};
+
+            push $packets, $packet;
+        }
+    }
+
+    $freshman = $freshman->TO_JSON;
+    $freshman->{ten_week} = $freshman->{ten_week}->mdy;
+    $freshman->{vote_date} = $freshman->{vote_date}->mdy;
+    $freshman->{result} = $freshman->{result}->value;
+
+    if ($deep) {
+        $freshman->{user} = $user;
+        $freshman->{packets} = $packets;
+    }
+
+    return $freshman;
+}
 
 __PACKAGE__->load_components(qw/InflateColumn::DateTime InflateColumn::Object::Enum Helper::Row::ToJSON/);
 __PACKAGE__->table('freshmen');

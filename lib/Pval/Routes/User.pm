@@ -11,25 +11,6 @@ use Pval::LDAP;
 use Pval::Misc;
 use Try::Tiny;
 
-use base 'Exporter';
-
-our @EXPORT_OK = qw/user_to_hash/;
-
-sub user_to_hash {
-    my ($ldap_user, $db_user) = @_;
-
-    # wtf CSH
-    return {
-        uid => $ldap_user->get('uid')->[0],
-        name => $ldap_user->get('cn')->[0],
-        room => ($ldap_user->get('roomNumber') // [0])->[0],
-        active => ($ldap_user->get('active') // [0])->[0],
-        alumni => ($ldap_user->get('alimni') // [0])->[0],
-        on_floor => ($ldap_user->get('onFloor') // [0])->[0],
-        housing_points => ($ldap_user->get('housingPoints') // [0])->[0]
-    };
-}
-
 sub get_user_hash {
     my $name = shift;
     my $ldap = Pval::LDAP->new;
@@ -45,12 +26,12 @@ sub get_user_hash {
     # Try::Tiny doesn't let you return from catch blocks
     return $ldap_user unless defined $ldap_user;
 
-    my $db_user = $db->resultset('User')->search({ UUID => $ldap_user->get('entryUUID') });
+    my $db_user = $db->resultset('User')->find({ UUID => $ldap_user->get('entryUUID') });
     if ($db_user eq "0") {
-        $db->resultset('User')->create({ UUID => $ldap_user->get('entryUUID') });
+        $db_user = $db->resultset('User')->create({ UUID => $ldap_user->get('entryUUID') })->single;
     }
 
-    return user_to_hash($ldap_user, $db_user);
+    return $db_user->json;
 }
 
 ## Routes
@@ -80,8 +61,7 @@ get '/' => sub {
     my $users = [];
 
     foreach my $active_user (@$active) {
-        my $db_user = $db->resultset('User')->search({ UUID=> $active_user->get('entryUUID') });
-        push $users, user_to_hash($active_user, $db_user);
+        push $users, $ldap->ldap_to_json($active_user);
     }
 
     return cache_page template_or_json({

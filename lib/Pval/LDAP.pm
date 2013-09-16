@@ -13,6 +13,22 @@ use Net::LDAP::Entry;
 use Net::LDAP::Util qw/escape_filter_value/;
 use Pval::Schema::Result::User;
 
+sub ldap_to_json {
+    my $self = shift;
+    my $ldap_entry = shift;
+
+    # wtf CSH
+    return {
+        uid => $ldap_entry->get('uid')->[0],
+        name => $ldap_entry->get('cn')->[0],
+        room => ($ldap_entry->get('roomNumber') // [0])->[0],
+        active => ($ldap_entry->get('active') // [0])->[0],
+        alumni => ($ldap_entry->get('alimni') // [0])->[0],
+        on_floor => ($ldap_entry->get('onFloor') // [0])->[0],
+        housing_points => ($ldap_entry->get('housingPoints') // [0])->[0]
+    };
+}
+
 sub uuid_to_committee {
     my $self = shift;
     my $uuid = shift;
