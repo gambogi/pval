@@ -28,8 +28,21 @@ get '/' => sub {
     my $db = schema 'default';
 
     my $user = Pval::LDAP->new->get_eval_director;
+    my $cp = $db->resultset('ControlPanel')->first;
+    
+    if (not defined $cp){
+        $db->resultset('ControlPanel')->create({
+                fall_form => 0,
+                winter_form => 0,
+                spring_form => 0,
+        });       
+    }
+
     return cache_page template 'index', {
         user => $user->[0],
+        fall_form   => $cp -> fall_form,
+        winter_form => $cp -> winter_form,
+        spring_form => $cp -> spring_form,
     };
 };
 
