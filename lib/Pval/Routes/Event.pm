@@ -88,7 +88,7 @@ sub committee_aggregate_routes {
     }, 'meetings', request->content_type;
 }
 
-get '/meetings/house/' => sub {
+get '/meetings/house' => sub {
     return aggregate_routes 'house_meeting';
 };
 
@@ -136,7 +136,7 @@ get '/meetings/:committee/:id' => sub {
     }, 'meeting', request->content_type;
 };
 
-get '/seminars/' => sub {
+get '/seminars' => sub {
     return aggregate_routes 'technical';
 };
 
@@ -148,7 +148,7 @@ get '/seminars/:id' => sub {
     return single_routes 'technical', param 'id';
 };
 
-get '/events/' => sub {
+get '/events' => sub {
     return aggregate_routes 'social';
 };
 

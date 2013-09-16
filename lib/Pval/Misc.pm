@@ -43,7 +43,7 @@ sub year_to_dates {
 }
 
 sub valid_year {
-    shift =~ /^20\d{2}$/;
+    (shift // DateTime->now->year) =~ /^20\d{2}$/;
 }
 
 1;
