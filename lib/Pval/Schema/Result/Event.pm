@@ -51,7 +51,11 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key('id');
 __PACKAGE__->belongs_to('presenter' => 'Pval::Schema::Result::User');
+
 __PACKAGE__->has_many('event_attendee' => 'Pval::Schema::Result::EventAttendee', 'event');
 __PACKAGE__->many_to_many('attendees' => 'event_attendee', 'attendee');
+
+__PACKAGE__->has_many('freshmen_event_attendee' => 'Pval::Schema::Result::FreshmenEventAttendee', 'event');
+__PACKAGE__->many_to_many('freshmen_attendees' => 'freshmen_event_attendee', 'attendee');
 
 1;
