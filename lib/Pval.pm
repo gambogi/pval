@@ -13,6 +13,7 @@ use DateTime;
 use Pval::LDAP;
 
 # Other routes
+use Pval::Routes::Event;
 use Pval::Routes::Freshman;
 use Pval::Routes::MajorProject;
 use Pval::Routes::User;

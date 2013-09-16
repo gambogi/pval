@@ -5,8 +5,38 @@ use warnings;
 use v5.10;
 
 use Moose;
+use Pval::LDAP;
 
 extends 'DBIx::Class::Core';
+
+sub json {
+    my $self = shift;
+    my $deep = shift;
+
+    my $event = {};
+    my $ldap = Pval::LDAP->new;
+    $event = $self->TO_JSON;
+
+    if ($deep) {
+        $event->{attendees} = [];
+        foreach my $attendee ($self->attendees) {
+            push $event->{attendees}, $attendee->json;
+        }
+
+        $event->{freshmen_attendees} = [];
+        foreach my $attendee ($self->freshmen_attendees) {
+            push $event->{freshmen_attendees}, $attendee->json;
+        }
+    }
+
+    $event->{date} = $event->{date}->mdy;
+    $event->{presenter} = $event->{presenter}->json;
+    $event->{type} = $event->{type}->value;
+    $event->{committee} = $ldap->uuid_to_committee($event->{committee})->get('cn')->[0];
+
+    return $event;
+}
+
 __PACKAGE__->load_components(qw/InflateColumn::DateTime InflateColumn::Object::Enum Helper::Row::ToJSON/);
 __PACKAGE__->table('events');
 __PACKAGE__->add_columns(
