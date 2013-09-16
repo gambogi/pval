@@ -9,7 +9,6 @@ use Dancer::Plugin::Cache::CHI;
 use Dancer::Plugin::DBIC;
 use Pval::LDAP;
 use Pval::Misc;
-use Pval::Schema;
 use Try::Tiny;
 
 prefix '/projects';
@@ -17,7 +16,6 @@ check_page_cache;
 
 get '/' => sub {
     my $db = schema;
-    my $ldap = Pval::LDAP->new;
     my @projects = $db->resultset('MajorProject')->search;
 
     return cache_page template_or_json({
@@ -27,7 +25,6 @@ get '/' => sub {
 
 get '/incoming' => sub {
     my $db = schema;
-    my $ldap = Pval::LDAP->new;
     my @projects;
 
     @projects = $db->resultset('MajorProject')->search({
@@ -51,7 +48,6 @@ get '/:id' => sub {
     if (defined $project) {
         return template_or_json({
             project => $project->json,
-            user => $project->submitter->json,
         }, 'project', request->content_type);
     } else {
         return cache_page template_or_json({
@@ -85,7 +81,6 @@ get '/user/:user' => sub {
 
     return cache_page template_or_json({
         projects => [ map { $_->json } @projects ],
-        user => $ldap->ldap_to_json($ldap_user),
     }, 'user_project', request->content_type);
 };
 

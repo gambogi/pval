@@ -29,6 +29,15 @@ sub ldap_to_json {
     };
 }
 
+sub committee_to_uuid {
+    my $self = shift;
+    my $committee = shift;
+
+    my $committee_obj = $self->_fetch_from_ldap("cn=".escape_filter_value($committee), [ qw/entryUUID/ ], "ou=Committees,dc=csh,dc=rit,dc=edu")->[0];
+    return undef unless $committee_obj;
+    return $committee_obj->get('entryUUID')->[0];
+}
+
 sub uuid_to_committee {
     my $self = shift;
     my $uuid = shift;
