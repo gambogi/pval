@@ -7,6 +7,23 @@ use v5.10;
 use Moose;
 
 extends 'DBIx::Class::Core';
+with 'Pval::Roles::JSON';
+
+sub json {
+    my $self = shift;
+    my $project = $self;
+
+    my $ldap = Pval::LDAP->new;
+    $project = $project->TO_JSON;
+
+    $project->{committee} = $ldap->uuid_to_committee($project->{committee})->get('cn')->[0];
+    $project->{submitter} = $project->{submitter}->json;
+    $project->{status} = $project->{status}->value;
+    $project->{date} = $project->{date}->datetime;
+
+    return $project;
+}
+
 __PACKAGE__->load_components(qw/InflateColumn::DateTime InflateColumn::Object::Enum Helper::Row::ToJSON/);
 __PACKAGE__->table('major_projects');
 __PACKAGE__->add_columns(
