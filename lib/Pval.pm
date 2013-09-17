@@ -28,10 +28,10 @@ get '/' => sub {
     my $db = schema 'default';
 
     my $user = Pval::LDAP->new->get_eval_director;
-    my $cp = $db->resultset('ControlPanel')->first;
+    my $cp = $db->resultset('ControlPanel')->single;
     
     if (not defined $cp){
-        $db->resultset('ControlPanel')->create({
+        $cp = $db->resultset('ControlPanel')->create({
                 fall_form => 0,
                 winter_form => 0,
                 spring_form => 0,
