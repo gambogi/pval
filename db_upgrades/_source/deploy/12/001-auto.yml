@@ -1,0 +1,1532 @@
+---
+schema:
+  procedures: {}
+  tables:
+    conditionals:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - freshman
+          match_type: ''
+          name: conditionals_fk_freshman
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - id
+          reference_table: freshmen
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user
+          match_type: ''
+          name: conditionals_fk_user
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - id
+          reference_table: users
+          type: FOREIGN KEY
+      fields:
+        created:
+          data_type: date
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: created
+          order: 4
+          size:
+            - 0
+        deadline:
+          data_type: date
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: deadline
+          order: 6
+          size:
+            - 0
+        description:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: description
+          order: 7
+          size:
+            - 10240
+        freshman:
+          data_type: integer
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: freshman
+          order: 3
+          size:
+            - 16
+        id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 16
+        status:
+          data_type: enum
+          default_value: ~
+          extra:
+            list:
+              - pending
+              - pass
+              - fail
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: status
+          order: 5
+          size:
+            - 0
+        timestamp:
+          data_type: timestamp
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: timestamp
+          order: 8
+          size:
+            - 0
+        user:
+          data_type: integer
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: user
+          order: 2
+          size:
+            - 16
+      indices:
+        - fields:
+            - freshman
+          name: conditionals_idx_freshman
+          options: []
+          type: NORMAL
+        - fields:
+            - user
+          name: conditionals_idx_user
+          options: []
+          type: NORMAL
+        - fields:
+            - created
+          name: conditional_created_idx
+          options: []
+          type: NORMAL
+        - fields:
+            - deadline
+          name: conditional_deadline_idx
+          options: []
+          type: NORMAL
+        - fields:
+            - status
+          name: conditional_status_idx
+          options: []
+          type: NORMAL
+      name: conditionals
+      options: []
+      order: 4
+    control_panel:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        fall_form:
+          data_type: boolean
+          default_value: 0
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: fall_form
+          order: 2
+          size:
+            - 0
+        id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 16
+        spring_form:
+          data_type: boolean
+          default_value: 0
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: spring_form
+          order: 4
+          size:
+            - 0
+        winter_form:
+          data_type: boolean
+          default_value: 0
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: winter_form
+          order: 3
+          size:
+            - 0
+      indices: []
+      name: control_panel
+      options: []
+      order: 1
+    event_attendee:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - attendee
+          match_type: ''
+          name: event_attendee_fk_attendee
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - id
+          reference_table: users
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - event
+          match_type: ''
+          name: event_attendee_fk_event
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - id
+          reference_table: events
+          type: FOREIGN KEY
+      fields:
+        attendee:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: attendee
+          order: 2
+          size:
+            - 16
+        event:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: event
+          order: 1
+          size:
+            - 16
+      indices:
+        - fields:
+            - attendee
+          name: event_attendee_idx_attendee
+          options: []
+          type: NORMAL
+        - fields:
+            - event
+          name: event_attendee_idx_event
+          options: []
+          type: NORMAL
+      name: event_attendee
+      options: []
+      order: 12
+    events:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - presenter
+          match_type: ''
+          name: events_fk_presenter
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - id
+          reference_table: users
+          type: FOREIGN KEY
+      fields:
+        committee:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: committee
+          order: 5
+          size:
+            - 37
+        date:
+          data_type: datetime
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: date
+          order: 3
+          size:
+            - 0
+        id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 16
+        name:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: name
+          order: 2
+          size:
+            - 1024
+        presenter:
+          data_type: integer
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: presenter
+          order: 4
+          size:
+            - 16
+        timestamp:
+          data_type: timestamp
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: timestamp
+          order: 7
+          size:
+            - 0
+        type:
+          data_type: enum
+          default_value: ~
+          extra:
+            list:
+              - technical
+              - social
+              - committee_meeting
+              - house_meeting
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: type
+          order: 6
+          size:
+            - 0
+      indices:
+        - fields:
+            - presenter
+          name: events_idx_presenter
+          options: []
+          type: NORMAL
+        - fields:
+            - date
+          name: event_date_idx
+          options: []
+          type: NORMAL
+        - fields:
+            - committee
+          name: event_committee_idx
+          options: []
+          type: NORMAL
+        - fields:
+            - type
+          name: event_type_idx
+          options: []
+          type: NORMAL
+      name: events
+      options: []
+      order: 5
+    freshmen:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: freshmen_fk_id
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - freshman
+          reference_table: users
+          type: FOREIGN KEY
+      fields:
+        comments:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: comments
+          order: 4
+          size:
+            - 10240
+        freshman_project_comments:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: freshman_project_comments
+          order: 7
+          size:
+            - 10240
+        id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 16
+        name:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: name
+          order: 2
+          size:
+            - 1024
+        passed_freshman_project:
+          data_type: integer
+          default_value: 0
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: passed_freshman_project
+          order: 6
+          size:
+            - 1
+        result:
+          data_type: enum
+          default_value: pending
+          extra:
+            list:
+              - pass
+              - fail
+              - pending
+              - conditional
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: result
+          order: 8
+          size:
+            - 0
+        ten_week:
+          data_type: date
+          default_value: !!perl/ref
+            =: CURRENT_DATE
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: ten_week
+          order: 5
+          size:
+            - 0
+        timestamp:
+          data_type: timestamp
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: timestamp
+          order: 9
+          size:
+            - 0
+        vote_date:
+          data_type: date
+          default_value: !!perl/ref
+            =: CURRENT_DATE
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: vote_date
+          order: 3
+          size:
+            - 0
+      indices:
+        - fields:
+            - name
+          name: freshmen_name_idx
+          options: []
+          type: NORMAL
+        - fields:
+            - vote_date
+          name: freshmen_vote_date_idx
+          options: []
+          type: NORMAL
+        - fields:
+            - ten_week
+          name: freshmen_ten_week_idx
+          options: []
+          type: NORMAL
+        - fields:
+            - result
+          name: freshmen_result_idx
+          options: []
+          type: NORMAL
+      name: freshmen
+      options: []
+      order: 2
+    freshmen_event_attendee:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - attendee
+          match_type: ''
+          name: freshmen_event_attendee_fk_attendee
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - id
+          reference_table: freshmen
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - event
+          match_type: ''
+          name: freshmen_event_attendee_fk_event
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - id
+          reference_table: events
+          type: FOREIGN KEY
+      fields:
+        attendee:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: attendee
+          order: 2
+          size:
+            - 16
+        event:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: event
+          order: 1
+          size:
+            - 16
+      indices:
+        - fields:
+            - attendee
+          name: freshmen_event_attendee_idx_attendee
+          options: []
+          type: NORMAL
+        - fields:
+            - event
+          name: freshmen_event_attendee_idx_event
+          options: []
+          type: NORMAL
+      name: freshmen_event_attendee
+      options: []
+      order: 13
+    freshmen_missing_signatures:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - freshmen_missing_signature
+          match_type: ''
+          name: freshmen_missing_signatures_fk_freshmen_missing_signature
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - id
+          reference_table: freshmen
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - packet
+          match_type: ''
+          name: freshmen_missing_signatures_fk_packet
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - id
+          reference_table: packets
+          type: FOREIGN KEY
+      fields:
+        freshmen_missing_signature:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: freshmen_missing_signature
+          order: 2
+          size:
+            - 16
+        packet:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: packet
+          order: 1
+          size:
+            - 16
+      indices:
+        - fields:
+            - freshmen_missing_signature
+          name: freshmen_missing_signatures_idx_freshmen_missing_signature
+          options: []
+          type: NORMAL
+        - fields:
+            - packet
+          name: freshmen_missing_signatures_idx_packet
+          options: []
+          type: NORMAL
+      name: freshmen_missing_signatures
+      options: []
+      order: 14
+    major_projects:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - submitter
+          match_type: ''
+          name: major_projects_fk_submitter
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - id
+          reference_table: users
+          type: FOREIGN KEY
+      fields:
+        comments:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: comments
+          order: 6
+          size:
+            - 10240
+        committee:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: committee
+          order: 7
+          size:
+            - 37
+        date:
+          data_type: datetime
+          default_value: !!perl/ref
+            =: CURRENT_TIMESTAMP
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: date
+          order: 5
+          size:
+            - 0
+        description:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: description
+          order: 3
+          size:
+            - 10240
+        id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 16
+        name:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: name
+          order: 2
+          size:
+            - 1024
+        status:
+          data_type: enum
+          default_value: ~
+          extra:
+            list:
+              - pending
+              - passed
+              - failed
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: status
+          order: 8
+          size:
+            - 0
+        submitter:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: submitter
+          order: 4
+          size:
+            - 16
+        timestamp:
+          data_type: timestamp
+          default_value: !!perl/ref
+            =: CURRENT_TIMESTAMP
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: timestamp
+          order: 9
+          size:
+            - 0
+      indices:
+        - fields:
+            - submitter
+          name: major_projects_idx_submitter
+          options: []
+          type: NORMAL
+        - fields:
+            - status
+          name: major_projects_status_idx
+          options: []
+          type: NORMAL
+        - fields:
+            - committee
+          name: major_projects_committee_idx
+          options: []
+          type: NORMAL
+        - fields:
+            - date
+          name: major_projects_date_idx
+          options: []
+          type: NORMAL
+      name: major_projects
+      options: []
+      order: 6
+    packet_missing_signatures:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - missing_signature
+          match_type: ''
+          name: packet_missing_signatures_fk_missing_signature
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - id
+          reference_table: users
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - packet
+          match_type: ''
+          name: packet_missing_signatures_fk_packet
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - id
+          reference_table: packets
+          type: FOREIGN KEY
+      fields:
+        missing_signature:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: missing_signature
+          order: 2
+          size:
+            - 16
+        packet:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: packet
+          order: 1
+          size:
+            - 16
+      indices:
+        - fields:
+            - missing_signature
+          name: packet_missing_signatures_idx_missing_signature
+          options: []
+          type: NORMAL
+        - fields:
+            - packet
+          name: packet_missing_signatures_idx_packet
+          options: []
+          type: NORMAL
+      name: packet_missing_signatures
+      options: []
+      order: 15
+    packets:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user
+          match_type: ''
+          name: packets_fk_user
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - id
+          reference_table: freshmen
+          type: FOREIGN KEY
+      fields:
+        due:
+          data_type: date
+          default_value: !!perl/ref
+            =: CURRENT_DATE
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: due
+          order: 4
+          size:
+            - 0
+        given:
+          data_type: date
+          default_value: !!perl/ref
+            =: CURRENT_DATE
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: given
+          order: 3
+          size:
+            - 0
+        id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 16
+        missing_alumni:
+          data_type: integer
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: missing_alumni
+          order: 6
+          size:
+            - 8
+        timestamp:
+          data_type: timestamp
+          default_value: !!perl/ref
+            =: CURRENT_TIMESTAMP
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: timestamp
+          order: 5
+          size:
+            - 0
+        user:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: user
+          order: 2
+          size:
+            - 16
+      indices:
+        - fields:
+            - user
+          name: packets_idx_user
+          options: []
+          type: NORMAL
+        - fields:
+            - given
+          name: packet_given_idx
+          options: []
+          type: NORMAL
+        - fields:
+            - due
+          name: packet_due_idx
+          options: []
+          type: NORMAL
+      name: packets
+      options: []
+      order: 7
+    queue:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user
+          match_type: ''
+          name: queue_fk_user
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - id
+          reference_table: users
+          type: FOREIGN KEY
+      fields:
+        date_added:
+          data_type: datetime
+          default_value: !!perl/ref
+            =: CURRENT_DATE
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: date_added
+          order: 3
+          size:
+            - 0
+        filled:
+          data_type: tinyint
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: filled
+          order: 4
+          size:
+            - 0
+        id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 16
+        timestamp:
+          data_type: timestamp
+          default_value: !!perl/ref
+            =: CURRENT_TIMESTAMP
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: timestamp
+          order: 5
+          size:
+            - 0
+        user:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: user
+          order: 2
+          size:
+            - 16
+      indices:
+        - fields:
+            - user
+          name: queue_idx_user
+          options: []
+          type: NORMAL
+      name: queue
+      options: []
+      order: 8
+    roster:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user
+          match_type: ''
+          name: roster_fk_user
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - id
+          reference_table: users
+          type: FOREIGN KEY
+      fields:
+        date:
+          data_type: date
+          default_value: !!perl/ref
+            =: CURRENT_DATE
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: date
+          order: 3
+          size:
+            - 0
+        id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 16
+        room:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: room
+          order: 4
+          size:
+            - 4
+        timestamp:
+          data_type: timestamp
+          default_value: !!perl/ref
+            =: CURRENT_TIMESTAMP
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: timestamp
+          order: 5
+          size:
+            - 0
+        user:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: user
+          order: 2
+          size:
+            - 16
+      indices:
+        - fields:
+            - user
+          name: roster_idx_user
+          options: []
+          type: NORMAL
+        - fields:
+            - date
+          name: roster_date_idx
+          options: []
+          type: NORMAL
+      name: roster
+      options: []
+      order: 9
+    spring_evals:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user
+          match_type: ''
+          name: spring_evals_fk_user
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - id
+          reference_table: users
+          type: FOREIGN KEY
+      fields:
+        comments:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: comments
+          order: 4
+          size:
+            - 10240
+        date:
+          data_type: datetime
+          default_value: !!perl/ref
+            =: CURRENT_TIMESTAMP
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: date
+          order: 2
+          size:
+            - 0
+        id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 16
+        result:
+          data_type: enum
+          default_value: ~
+          extra:
+            list:
+              - pending
+              - conditional
+              - pass
+              - fail
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: result
+          order: 5
+          size:
+            - 0
+        timestamp:
+          data_type: timestamp
+          default_value: !!perl/ref
+            =: CURRENT_TIMESTAMP
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: timestamp
+          order: 6
+          size:
+            - 0
+        user:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: user
+          order: 3
+          size:
+            - 16
+      indices:
+        - fields:
+            - user
+          name: spring_evals_idx_user
+          options: []
+          type: NORMAL
+        - fields:
+            - date
+          name: spring_evals_date_idx
+          options: []
+          type: NORMAL
+        - fields:
+            - result
+          name: spring_evals_result_idx
+          options: []
+          type: NORMAL
+      name: spring_evals
+      options: []
+      order: 10
+    users:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - freshman
+          match_type: ''
+          name: users_fk_freshman
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - id
+          reference_table: freshmen
+          type: FOREIGN KEY
+      fields:
+        UUID:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: UUID
+          order: 2
+          size:
+            - 37
+        freshman:
+          data_type: integer
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: freshman
+          order: 3
+          size:
+            - 16
+        id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 16
+        timestamp:
+          data_type: timestamp
+          default_value: !!perl/ref
+            =: CURRENT_TIMESTAMP
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: timestamp
+          order: 4
+          size:
+            - 0
+      indices:
+        - fields:
+            - freshman
+          name: users_idx_freshman
+          options: []
+          type: NORMAL
+        - fields:
+            - UUID
+          name: user_uuid_idx
+          options: []
+          type: NORMAL
+      name: users
+      options: []
+      order: 3
+    winter_evals:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user
+          match_type: ''
+          name: winter_evals_fk_user
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - id
+          reference_table: users
+          type: FOREIGN KEY
+      fields:
+        comments:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: comments
+          order: 4
+          size:
+            - 10240
+        date:
+          data_type: date
+          default_value: !!perl/ref
+            =: CURRENT_DATE
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: date
+          order: 5
+          size:
+            - 0
+        id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 16
+        projects:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: projects
+          order: 3
+          size:
+            - 10240
+        timestamp:
+          data_type: timestamp
+          default_value: !!perl/ref
+            =: CURRENT_TIMESTAMP
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: timestamp
+          order: 6
+          size:
+            - 0
+        user:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: user
+          order: 2
+          size:
+            - 16
+      indices:
+        - fields:
+            - user
+          name: winter_evals_idx_user
+          options: []
+          type: NORMAL
+        - fields:
+            - date
+          name: winter_evals_date_idx
+          options: []
+          type: NORMAL
+      name: winter_evals
+      options: []
+      order: 11
+  triggers: {}
+  views: {}
+translator:
+  add_drop_table: 0
+  filename: ~
+  no_comments: 0
+  parser_args:
+    sources:
+      - FreshmenEventAttendee
+      - Packet
+      - Event
+      - ControlPanel
+      - SpringEval
+      - MajorProject
+      - Conditional
+      - WinterEval
+      - Queue
+      - Roster
+      - FreshmenMissingSignature
+      - User
+      - Freshman
+      - PacketMissingSignature
+      - EventAttendee
+  parser_type: SQL::Translator::Parser::DBIx::Class
+  producer_args: {}
+  producer_type: SQL::Translator::Producer::YAML
+  show_warnings: 0
+  trace: 0
+  version: 0.11016

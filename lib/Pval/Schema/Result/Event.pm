@@ -88,4 +88,12 @@ __PACKAGE__->many_to_many('attendees' => 'event_attendee', 'attendee');
 __PACKAGE__->has_many('freshmen_event_attendee' => 'Pval::Schema::Result::FreshmenEventAttendee', 'event');
 __PACKAGE__->many_to_many('freshmen_attendees' => 'freshmen_event_attendee', 'attendee');
 
+sub sqlt_deploy_hook {
+    my ($self, $sqlt_table) = @_;
+
+    $sqlt_table->add_index(name => 'event_date_idx', fields => ['date']);
+    $sqlt_table->add_index(name => 'event_committee_idx', fields => ['committee']);
+    $sqlt_table->add_index(name => 'event_type_idx', fields => ['type']);
+}
+
 1;

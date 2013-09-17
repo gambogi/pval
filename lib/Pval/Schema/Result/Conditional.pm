@@ -80,4 +80,12 @@ __PACKAGE__->set_primary_key('id');
 __PACKAGE__->belongs_to('user', 'Pval::Schema::Result::User');
 __PACKAGE__->belongs_to('freshman', 'Pval::Schema::Result::Freshman');
 
+sub sqlt_deploy_hook {
+    my ($self, $sqlt_table) = @_;
+
+    $sqlt_table->add_index(name => 'conditional_created_idx', fields => ['created']);
+    $sqlt_table->add_index(name => 'conditional_deadline_idx', fields => ['deadline']);
+    $sqlt_table->add_index(name => 'conditional_status_idx', fields => ['status']);
+}
+
 1;

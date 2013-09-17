@@ -86,6 +86,7 @@ sub sqlt_deploy_hook {
 
     $sqlt_table->add_index(name => 'major_projects_status_idx', fields => ['status']);
     $sqlt_table->add_index(name => 'major_projects_committee_idx', fields => ['committee']);
+    $sqlt_table->add_index(name => 'major_projects_date_idx', fields => ['date']);
 }
 
 1;
