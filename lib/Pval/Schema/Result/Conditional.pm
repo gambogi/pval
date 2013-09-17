@@ -7,6 +7,11 @@ use v5.10;
 use Moose;
 
 extends 'DBIx::Class::Core';
+with 'Pval::Roles::JSON';
+
+sub json {
+}
+
 __PACKAGE__->load_components(qw/InflateColumn::DateTime InflateColumn::Object::Enum Helper::Row::ToJSON/);
 __PACKAGE__->table('conditionals');
 __PACKAGE__->add_columns(
@@ -19,7 +24,12 @@ __PACKAGE__->add_columns(
     user => {
         data_type => 'integer',
         size => 16,
-        is_nullable => 0,
+        is_nullable => 1,
+    },
+    freshman => {
+        data_type => 'integer',
+        size => 16,
+        is_nullable => 1,
     },
     created => {
         data_type => 'date',
@@ -46,5 +56,6 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key('id');
 __PACKAGE__->belongs_to('user', 'Pval::Schema::Result::User');
+__PACKAGE__->belongs_to('freshman', 'Pval::Schema::Result::Freshman');
 
 1;

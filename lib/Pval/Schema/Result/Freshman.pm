@@ -129,6 +129,7 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key('id');
 __PACKAGE__->belongs_to('user' => 'Pval::Schema::Result::User', { 'foreign.freshman' => 'self.id' });
 __PACKAGE__->has_many('packets' => 'Pval::Schema::Result::Packet', 'id');
+__PACKAGE__->has_many('conditionals' => 'Pval::Schema::Result::Conditional', 'freshman');
 
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;

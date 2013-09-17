@@ -1,6 +1,6 @@
 package Pval::Schema;
 
-our $VERSION = 9;
+our $VERSION = 10;
 
 use base qw/DBIx::Class::Schema/;
 __PACKAGE__->load_namespaces();

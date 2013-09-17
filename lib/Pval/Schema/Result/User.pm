@@ -66,6 +66,7 @@ __PACKAGE__->has_many('projects' => 'Pval::Schema::Result::MajorProject', 'submi
 __PACKAGE__->has_many('spring_evals' => 'Pval::Schema::Result::SpringEval', 'user');
 __PACKAGE__->has_many('winter_evals' => 'Pval::Schema::Result::WinterEval', 'user');
 __PACKAGE__->has_many('rosters' => 'Pval::Schema::Result::Roster', 'user');
+__PACKAGE__->has_many('conditionals' => 'Pval::Schema::Result::Conditional', 'user');
 
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
