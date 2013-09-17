@@ -1,5 +1,25 @@
 [% PROCESS header.tt title = "USERS" %]
+<div class="row panel">
+<table>
+<thead>
+    <th width="200">Name</th>
+    <th>Room</th>
+    <th>Active</th>
+    <th>Alumni</th>
+    <th>onFloor</th>
+    <th>Housing Points</th>
+</thead>
+<tbody>
 [% FOREACH user = users %]
-[% PROCESS user_panel.tt user=user %]
+<tr>
+    <td>[% user.name           | html_entity %]</td>
+    <td>[% user.room           | html_entity %]</td>
+    <td>[% user.active         | html_entity %]</td>
+    <td>[% user.alumni         | html_entity %]</td>
+    <td>[% user.on_floor       | html_entity %]</td>
+    <td>[% user.housing_points | html_entity %]</td>
+</tr>
 [% END %]
+</tbody>
+</table></div>
 [% PROCESS footer.tt %]
