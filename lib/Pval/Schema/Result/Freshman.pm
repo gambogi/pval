@@ -16,9 +16,10 @@ sub json {
     my $self = shift;
     my $deep = shift; #Check to see if we need to do all of the packet stuff
 
-    my $freshman = {};
     my $user = undef;
+    my $freshman = {};
     my $packets = [];
+    my $conditionals = [];
 
     if ($deep) {
         my $ldap = Pval::LDAP->new;
@@ -44,6 +45,14 @@ sub json {
                 push $missing_freshmen_signatures, $signature;
             }
 
+            foreach my $conditional ($self->conditionals->all) {
+                my $cond = $conditional->json;
+                delete $cond->{freshman};
+                delete $cond->{user};
+
+                push $conditionals, $cond;
+            }
+
             $packet = $packet->TO_JSON;
             $packet->{given} = $packet->{given}->mdy;
             $packet->{due} = $packet->{due}->mdy;
@@ -66,6 +75,7 @@ sub json {
     if ($deep) {
         $freshman->{user} = $user;
         $freshman->{packets} = $packets;
+        $freshman->{conditionals} = $conditionals;
     }
 
     return $freshman;

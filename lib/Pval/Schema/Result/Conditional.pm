@@ -10,6 +10,22 @@ extends 'DBIx::Class::Core';
 with 'Pval::Roles::JSON';
 
 sub json {
+    my $self = shift;
+    my $conditional = $self->TO_JSON;
+
+    if (defined $self->user) {
+        $conditional->{user} = $self->user->json;
+    }
+
+    if (defined $self->freshman) {
+        $conditional->{freshman} = $self->freshman->json;
+    }
+
+    $conditional->{created} = $conditional->{created}->mdy;
+    $conditional->{deadline} = $conditional->{deadline}->mdy;
+    $conditional->{status} = $conditional->{status}->value;
+
+    return $conditional;
 }
 
 __PACKAGE__->load_components(qw/InflateColumn::DateTime InflateColumn::Object::Enum Helper::Row::ToJSON/);

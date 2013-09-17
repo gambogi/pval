@@ -14,7 +14,7 @@
 [% END %]
 
 [% FOREACH packet = freshman.packets %]
-    <h3>Packets</h4>
+    <h3>Packets</h3>
     <ul>
     <li>Given: [% packet.given %]</li>
     <li>Due: [% packet.due %]</li>
@@ -31,6 +31,15 @@
         [% END %]
         </ul>
     <h4>Missing [% packet.missing_alumni %] alumni</h4>
+    </ul>
+[% END %]
+
+[% FOREACH conditional = freshman.conditionals %]
+    <h3>Conditionals</h3>
+    <ul>
+    <li>Given: [% conditional.created %]</li>
+    <li>Due: [% conditional.deadline %]</li>
+    <li>Status [% conditional.status %]</li>
     </ul>
 [% END %]
 

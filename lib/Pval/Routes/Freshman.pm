@@ -45,7 +45,7 @@ get '/:id' => sub {
     my $freshman = $db->resultset('Freshman')->find({
         id => param 'id',
     }, {
-        prefetch => [ qw/packets/ ],
+        prefetch => [ qw/packets conditionals/ ],
     });
 
     return cache_page template_or_json {
