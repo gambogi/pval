@@ -64,6 +64,12 @@ __PACKAGE__->add_columns(
         data_type => 'date',
         is_nullable => 0,
     },
+    description => {
+        data_type => 'varchar',
+        size => 10240,
+        is_nullable => 0,
+        default_value => '',
+    },
     timestamp => {
         data_type => 'timestamp',
         default => \'CURRENT_TIMESTAMP',

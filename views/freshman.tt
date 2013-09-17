@@ -39,7 +39,8 @@
     <ul>
     <li>Given: [% conditional.created %]</li>
     <li>Due: [% conditional.deadline %]</li>
-    <li>Status [% conditional.status %]</li>
+    <li>Status: [% conditional.status %]</li>
+    <li>Description: [% conditional.description | html_entity %]</li>
     </ul>
 [% END %]
 
