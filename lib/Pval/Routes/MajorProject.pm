@@ -36,12 +36,9 @@ get '/' => sub {
     aggregate_projects {};
 };
 
-get '/incoming' => sub {
-    aggregate_projects { status => 'pending' };
-};
-
 get '/:result' => sub {
-    aggregate_projects {status => param 'result'};
+    pass unless param 'result' ~~ qw/pending passed failed/;
+    aggregate_projects { status => param 'result' };
 };
 
 get '/year/:year' => sub {
@@ -60,6 +57,8 @@ get '/year/:year/:result' => sub {
 
 
 get '/:id' => sub {
+    pass unless param 'id' !~ /^\d+$/;
+
     my $id  = param 'id';
     my $db = schema;
     my $project = undef;
