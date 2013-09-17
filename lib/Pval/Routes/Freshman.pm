@@ -13,13 +13,31 @@ use Pval::Misc;
 prefix '/freshmen';
 check_page_cache;
 
-get '/' => sub {
+sub freshmen_aggregates {
+    my $year = shift;
     my $db = schema;
-    my @freshmen = $db->resultset('Freshman')->all;
+    my $dtf = schema->storage->datetime_parser;
+
+    my @freshmen = $db->resultset('Freshman')->search({
+        vote_date => {
+            -between => [ map { $dtf->format_datetime($_) } year_to_dates $year ],
+        },
+    });
 
     return cache_page template_or_json {
         freshmen => [ map { $_->json } @freshmen ],
     }, 'freshmen', request->content_type;
+}
+
+get '/' => sub {
+    freshmen_aggregates;
+};
+
+get '/year/:year' => sub {
+    return cache_page template_or_json {
+        error => 'Invalid year '.param 'year'
+    }, 'error', request->content_type unless valid_year param 'year';
+    freshmen_aggregates param 'year';
 };
 
 get '/:id' => sub {
