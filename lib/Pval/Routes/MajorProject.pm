@@ -14,26 +14,37 @@ use Try::Tiny;
 prefix '/projects';
 check_page_cache;
 
-get '/' => sub {
+sub aggregate_projects {
+    my $incoming = shift;
+    my $year = shift;
     my $db = schema;
-    my @projects = $db->resultset('MajorProject')->search;
+    my $dtf = schema->storage->datetime_parser;
+
+    my @projects = $db->resultset('MajorProject')->search({
+        %$incoming,
+        date => {
+            -between => [ map { $dtf->format_datetime($_) } year_to_dates $year ],
+        },
+    }, { prefetch => 'submitter' });
 
     return cache_page template_or_json({
         projects => [ map { $_->json } @projects ]
     }, 'user_project', request->content_type);
+}
+
+get '/' => sub {
+    aggregate_projects {};
 };
 
 get '/incoming' => sub {
-    my $db = schema;
-    my @projects;
+    aggregate_projects { status => 'pending' };
+};
 
-    @projects = $db->resultset('MajorProject')->search({
-        status => 'pending'
-    }, { prefetch => 'submitter', });
-
-    return cache_page template_or_json({
-        projects => [ map { $_->json } @projects ]
-    }, 'user_project', request->content_type);
+get '/year/:year' => sub {
+    return {
+        error => 'Invalid year '.param 'year'
+    }, 'error', request->content_type unless valid_year param 'year';
+    aggregate_projects {}, param 'year';
 };
 
 get '/:id' => sub {
@@ -42,7 +53,7 @@ get '/:id' => sub {
     my $project = undef;
 
     try {
-        $project = $db->resultset('MajorProject')->find({ id => $id });
+        $project = $db->resultset('MajorProject')->find({ id => $id }, { prefetch => 'submitter' });
     };
 
     if (defined $project) {
