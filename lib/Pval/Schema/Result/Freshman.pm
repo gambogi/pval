@@ -14,19 +14,19 @@ with 'Pval::Roles::JSON';
 
 sub json {
     my $self = shift;
-    my $freshman = $self;
     my $deep = shift; #Check to see if we need to do all of the packet stuff
 
+    my $freshman = {};
     my $user = undef;
     my $packets = [];
 
     if ($deep) {
         my $ldap = Pval::LDAP->new;
-        if ($freshman->user) {
-            $user = $freshman->user->json;
+        if ($self->user) {
+            $user = $self->user->json;
         }
 
-        foreach my $packet ($freshman->packets->all) {
+        foreach my $packet ($self->packets->all) {
             my $missing_signatures = [];
             my $missing_freshmen_signatures = [];
 
@@ -58,7 +58,7 @@ sub json {
         }
     }
 
-    $freshman = $freshman->TO_JSON;
+    $freshman = $self->TO_JSON;
     $freshman->{ten_week} = $freshman->{ten_week}->mdy;
     $freshman->{vote_date} = $freshman->{vote_date}->mdy;
     $freshman->{result} = $freshman->{result}->value;

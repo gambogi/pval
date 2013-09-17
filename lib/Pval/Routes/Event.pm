@@ -27,7 +27,7 @@ sub aggregate_routes {
         date => {
             -between => [ map { $dtf->format_datetime($_) } year_to_dates $year ],
         },
-    });
+    }, { prefetch => 'presenter' });
 
     return cache_page template_or_json {
         meetings => [ map { $_->json } @events ],
@@ -80,7 +80,7 @@ sub committee_aggregate_routes {
         date => {
             -between => [ map { $dtf->format_datetime($_) } year_to_dates $year ],
         },
-    });
+    }, { prefetch => 'presenter' });
 
     return cache_page template_or_json {
         meetings => [ map { $_->json } @meetings ],
@@ -123,7 +123,7 @@ get '/meetings/:committee/:id' => sub {
         type => 'meeting',
         committee => $committee,
         id => param 'id',
-    })->single;
+    }, { prefetch => 'presenter' })->single;
 
     unless ($meeting) {
         return cache_page template_or_json {
