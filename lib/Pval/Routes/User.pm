@@ -31,7 +31,7 @@ sub get_user_hash {
         $db_user = $db->resultset('User')->create({ UUID => $ldap_user->get('entryUUID') })->single;
     }
 
-    return $db_user->json;
+    return $db_user->json(1);
 }
 
 ## Routes

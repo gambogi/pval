@@ -27,8 +27,23 @@ sub _build_ldap_entry {
 
 sub json {
     my $self = shift;
+    my $deep = shift;
     my $ldap = Pval::LDAP->new;
-    return $ldap->ldap_to_json($self->ldap_entry);
+    my $user = $ldap->ldap_to_json($self->ldap_entry);
+
+    if ($deep) {
+        my $conditionals = [];
+        foreach my $conditional ($self->conditionals) {
+            my $cond = $conditional->json;
+            delete $cond->{user};
+            delete $cond->{freshman};
+            push $conditionals, $cond;
+        }
+
+        $user->{conditionals} = $conditionals;
+    }
+
+    return $user;
 }
 
 __PACKAGE__->table('users');

@@ -5,4 +5,13 @@
 <li>alumni:         [% user.alumni | html_entity %]</li>
 <li>onFloor:        [% user.on_floor | html_entity %]</li>
 <li>housingPoints:  [% user.housing_points | html_entity %]</li>
+[% IF user.conditionals %]
+    <h4>Conditionals</h4>
+    <ul>
+    [% FOREACH conditional = user.conditionals %]
+        <li>Given: [% conditional.created %]</li>
+        <li>Due: [% conditional.deadline %]</li>
+        <li>Status: [% conditional.status %]</li>
+    [% END %]
+[% END %]
 </ul>
