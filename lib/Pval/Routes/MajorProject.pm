@@ -40,12 +40,24 @@ get '/incoming' => sub {
     aggregate_projects { status => 'pending' };
 };
 
+get '/:result' => sub {
+    aggregate_projects {status => param 'result'};
+};
+
 get '/year/:year' => sub {
     return {
         error => 'Invalid year '.param 'year'
     }, 'error', request->content_type unless valid_year param 'year';
     aggregate_projects {}, param 'year';
 };
+
+get '/year/:year/:result' => sub {
+    return {
+        error => 'Invalid year '.param 'year'
+    }, 'error', request->content_type unless valid_year param 'year';
+    aggregate_projects {status => param 'result'}, param 'year';
+};
+
 
 get '/:id' => sub {
     my $id  = param 'id';
