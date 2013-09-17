@@ -37,7 +37,7 @@ get '/' => sub {
 };
 
 get '/:result' => sub {
-    pass unless param 'result' ~~ qw/pending passed failed/;
+    pass unless param('result') ~~ [ qw/pending passed failed/ ];
     aggregate_projects { status => param 'result' };
 };
 
@@ -57,7 +57,7 @@ get '/year/:year/:result' => sub {
 
 
 get '/:id' => sub {
-    pass unless param 'id' !~ /^\d+$/;
+    pass unless param('id') =~ /^\d+$/;
 
     my $id  = param 'id';
     my $db = schema;
