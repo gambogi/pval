@@ -1,5 +1,5 @@
 <ul>
-<li>name:           [% user.name | html_entity %] ([% user.uid | html_entity %])</li>
+<li>name:           [% user.name | html_entity %] (<a href="/users/[% user.uid | uri %]">[% user.uid | html_entity %]</a>)</li>
 <li>room:           [% user.room | html_entity %]</li>
 <li>active:         [% user.active | html_entity %]</li>
 <li>alumni:         [% user.alumni | html_entity %]</li>
