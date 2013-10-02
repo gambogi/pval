@@ -1,10 +1,13 @@
+<h3><a href="/users/[% user.uid | uri %]">[% user.name | html_entity %]</a></h3>
+
+<img src="https://members.csh.rit.edu/profiles//members/[% user.uid | uri %]/i">
 <ul>
-<li>name:           [% user.name | html_entity %] (<a href="/users/[% user.uid | uri %]">[% user.uid | html_entity %]</a>)</li>
 <li>room:           [% user.room | html_entity %]</li>
 <li>active:         [% user.active | html_entity %]</li>
 <li>alumni:         [% user.alumni | html_entity %]</li>
 <li>onFloor:        [% user.on_floor | html_entity %]</li>
 <li>housingPoints:  [% user.housing_points | html_entity %]</li>
+
 [% IF user.conditionals %]
     <h4>Conditionals</h4>
     <ul>
@@ -13,6 +16,12 @@
         <li>Due: [% conditional.deadline %]</li>
         <li>Status: [% conditional.status %]</li>
         <li>Description: [% conditional.description | html_entity %]</li>
+    [% END %]
+[% END %]
+[% IF user.projects %]
+    <h4>Projects</h4>
+    [% FOREACH project = user.projects %]
+        [% PROCESS project_entity.tt%]  
     [% END %]
 [% END %]
 </ul>

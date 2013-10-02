@@ -7,4 +7,33 @@
 <li>Result: [% freshman.result | html_entity %]</li>
 </ul></div>
 [% END %]
+
+<div class="row"><table>
+    <thead>
+    <tr>
+        <th width="200">Name</th>
+        <th>Packet</th>
+        <th>Meetings</th>
+        <th>Seminars</th>
+        <th>Project</th>
+        <th width="400">Comments</th>
+    </tr>
+    </thead>
+    <tbody>
+    [% FOREACH freshman = freshmen %]
+    <tr> 
+        <td>
+        <a href="/freshmen/[% freshman.id | html_entity %]">        
+        [% freshman.name | html_entity %]</a>
+        [% IF freshman.user %]
+        (<a href="/users/[% freshman.user.uid | uri %]">
+        [% freshmen.user.uid | html_entity %]</a>)
+        [% END %]
+        </td>
+        <td>[% freshman.missing_signatures | html_entity %]</td>
+    </tr>
+    [% END %]
+    </tbody>
+</table></div>
+
 [% PROCESS footer.tt %]

@@ -1,13 +1,16 @@
-<div class="row panel project"><ul>
-    <li><a href="/projects/[% project.id %]">[% project.name | html_entity %]</a></li>
+<h3 class="subheader"><small>
+[% IF user %]
+<a href="/users/[% project.user.uid | uri %]">[% project.user.name | html_entity %]</a>
+[% ELSE %]
+<a href="/users/[% project.submitter.uid | uri %]">[% project.submitter.name | html_entity %]</a>
+[% END %]
+</small></h3>
+<h4><a href="/projects/[% project.id %]">[% project.name | html_entity %]</a></li></h4>
+
+<ul>
     <li>[% project.description | html_entity %]</li>
-    [% IF user %]
-        <li><a href="/users/[% project.user.uid | uri %]">[% project.user.name | html_entity %]</a></li>
-    [% ELSE %]
-        <li><a href="/users/[% project.submitter.uid | uri %]">[% project.submitter.name | html_entity %]</a></li>
-    [% END %]
     <li>[% project.date | html_entity %]</li>
     <li>[% project.comments | html_entity %]</li>
     <li>[% project.committee | html_entity %]</li>
     <li>[% project.status | html_entity %]</li>
-</ul></div>
+</ul>

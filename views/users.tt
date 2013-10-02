@@ -1,23 +1,40 @@
 [% PROCESS header.tt title = "USERS" %]
-<div class="row panel">
-<table>
+<div class="row center"><table>
 <thead>
+    <th width="50" height="50"></th>
     <th width="200">Name</th>
-    <th>Room</th>
-    <th>Active</th>
-    <th>Alumni</th>
-    <th>onFloor</th>
+    <th>Status</th>
     <th>Housing Points</th>
+    <th>Room Number</th>
 </thead>
 <tbody>
+
 [% FOREACH user = users %]
 <tr>
-    <td>[% user.name           | html_entity %]</td>
-    <td>[% user.room           | html_entity %]</td>
-    <td>[% user.active         | html_entity %]</td>
-    <td>[% user.alumni         | html_entity %]</td>
-    <td>[% user.on_floor       | html_entity %]</td>
+    <td><img src="https://localhost:3005/[% user.UUID | uri %].jpg"></td>
+    <td><a href="/users/[% user.uid | uri %]">
+    [% user.name | html_entity %]
+    </a></td>
+    <td>
+        [% IF user.conditionals %]
+        Conditional
+        [% END %]
+        [% IF user.on_floor && user.active %]
+        On Floor
+        [% ELSIF user.alumni %]
+        Alumni
+        [% ELSIF user.active && user.on_floor != 1 %]
+        Off Floor
+        [% ELSE %]
+        Fuck if I know
+        [%END%]
+    </td>
     <td>[% user.housing_points | html_entity %]</td>
+    <td>
+    [% IF user.room %]
+       [% user.room | html_entity %]
+    [% END %]
+    </td>
 </tr>
 [% END %]
 </tbody>

@@ -26,10 +26,10 @@ sub _build_ldap_entry {
 }
 
 sub json {
-    my $self = shift;
-    my $deep = shift;
-    my $ldap = Pval::LDAP->new;
-    my $user = $ldap->ldap_to_json($self->ldap_entry);
+    my $self     = shift;
+    my $deep     = shift;
+    my $ldap     = Pval::LDAP->new;
+    my $user     = $ldap->ldap_to_json($self->ldap_entry);
 
     if ($deep) {
         my $conditionals = [];
@@ -39,8 +39,14 @@ sub json {
             delete $cond->{freshman};
             push $conditionals, $cond;
         }
+        my $projects =[];
+        foreach my $project ($self->projects) {
+            my $proj = $project->json;
+            push $projects, $proj;
+        }
 
         $user->{conditionals} = $conditionals;
+        $user->{projects}     = $projects;
     }
 
     return $user;
