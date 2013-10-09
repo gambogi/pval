@@ -28,6 +28,7 @@ get '/' => sub {
     my $db = schema 'default';
 
     my $user = Pval::LDAP->new->get_eval_director;
+    my $eval_director = Pval::LDAP->new->get_eval_director;
     my $cp = $db->resultset('ControlPanel')->single;
     
     if (not defined $cp){
@@ -40,6 +41,7 @@ get '/' => sub {
 
     return cache_page template 'index', {
         user => $user->[0],
+        eval_director => $eval_director->[0],
         fall_form   => $cp -> fall_form,
         winter_form => $cp -> winter_form,
         spring_form => $cp -> spring_form,

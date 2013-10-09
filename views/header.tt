@@ -28,6 +28,10 @@
             <ul class="left">
                 <li><a href="/users">Users</a></li>
                 <li><a href="/projects">Projects</a></li>
+                [% IF user == eval_director %]
+                <li><a href="/controls">Controls</a></li> 
+                [% END %]
+                <li>Your eval director: [% eval_director %]</li>
             </ul>
 
         <!-- Right Nav Section -->

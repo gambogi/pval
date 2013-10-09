@@ -18,7 +18,10 @@ sub ldap_to_json {
     my $ldap_entry = shift;
 
     # wtf CSH
+    # 16:18 <worr> some ldap entries can have more than one value
+    # 16:18 <worr> none of the ones we're querying should
     return {
+        uuid => $ldap_entry->get('entryUUID')->[0],
         uid => $ldap_entry->get('uid')->[0],
         name => $ldap_entry->get('cn')->[0],
         room => ($ldap_entry->get('roomNumber') // [0])->[0],

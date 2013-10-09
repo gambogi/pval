@@ -2,39 +2,19 @@
     <!-- Main Body -->
 	<div id="main" class="row ">
 		<div class="large-8 push-4 columns">
-			<div class="row panel">
-				<h3>Major Project Form</h3>
-				<form>
-        			<input type="text" placeholder="Title">
-        			<textarea placeholder="Description"></textarea>
-				</form>
-				<a href="#" class="button radius">Submit</a>
-			</div>
+			[% PROCESS forms/major_project_form.tt %]
 
-       [% IF winter_eval_form %]
-			<div class="row panel">
-				<h3>Winter Eval Form</h3>
-			
-                This should be toggleable by the eval director
-			</div>
-       [% END %]
+            [% IF winter_eval_form || user == eval_director %]
+			  [% PROCESS forms/winter_eval_form.tt %]
+            [% END %]
 
-       [% IF fall_eval_form %]
-			<div class="row panel">
-				<h3>Fall Eval Form</h3>
-				This should be toggleable by the eval director
-			</div>
-       [% END %]
-
-
+            [% IF (fall_eval_form || user == eval_director) %]
+              [% PROCESS forms/fall_eval_form.tt %]
+            [% END %]
 		</div>
-       
 
 		<div class="large-3 pull-9 columns">
-			<div class="row panel">
-                [% user | html_entity %]
-            </div>
+			[% PROCESS user_panel.tt %]
 		</div>
-
 	</div>
 [% PROCESS footer.tt %]

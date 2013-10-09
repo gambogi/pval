@@ -1,6 +1,6 @@
 <h3><a href="/users/[% user.uid | uri %]">[% user.name | html_entity %]</a></h3>
 
-<img src="https://members.csh.rit.edu/profiles//members/[% user.uid | uri %]/i">
+<img src="https://avatar.csh.rit.edu/[% user.uuid | uri %].jpg">
 <ul>
 <li>room:           [% user.room | html_entity %]</li>
 <li>active:         [% user.active | html_entity %]</li>

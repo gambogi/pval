@@ -1,0 +1,9 @@
+<div class="row panel">
+  [% IF user == eval_director %]
+    <a class="float right button small radius"> 
+    [% IF !fall_eval_form %] Turn On
+    [% ELSE %]               Turn Off 
+  [% END %]
+  </a>[% END %]
+  <h3>Winter Eval Form</h3>
+</div>

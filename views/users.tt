@@ -11,7 +11,7 @@
 
 [% FOREACH user = users %]
 <tr>
-    <td><img src="https://localhost:3005/[% user.UUID | uri %].jpg"></td>
+    <td><img src="http://avatar.csh.rit.edu/[% user.uuid | uri %].jpg"></td>
     <td><a href="/users/[% user.uid | uri %]">
     [% user.name | html_entity %]
     </a></td>
