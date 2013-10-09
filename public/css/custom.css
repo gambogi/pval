@@ -1,4 +1,6 @@
 /******COLORS******/
+/*CSHPurple:#bd17a7*/
+/*CSHPink:  #f50565*/
 /*Green:#5ba215*/
 /*Dark Green:#498211;*/
 /*Charcoal:#222*/
@@ -13,11 +15,11 @@
       url('/fonts/Eras Light.ttf')  format('truetype'); /* Safari, Android, iOS */
 }
 ::selection {
-  background:#5ba215;
+  background:#f50565;
   color:white;
 }
 ::-moz-selection {
-  background:#5ba215;
+  background:#f50565;
   color:white;
 }
 
@@ -40,8 +42,38 @@ html, body {
 }
 
 /****Foundation******/
-.panel {
+#side-panel {
+    margin-left: -5%;
+    padding-right: 5%;
+}
+
+.row.panel {
   background-color: white;
+  margin-bottom: 15px;
+}
+
+.top-bar {
+    background: none;
+    color: white;
+    margin-bottom: 0px;
+    padding-bottom: -15px;
+}
+
+.top-bar-section ul {
+    background-color: inherit;
+}
+
+.top-bar-section ul li > a {
+    color: #fff;
+    text-transform: uppercase;
+    padding: 0px 10px;
+}
+.top-bar-section ul li > a:active {
+    color: white;
+    background-color: #f50565;
+}
+.top-bar-section li a:not(.button) {
+    background: none;
 }
 
 #main {
@@ -49,18 +81,22 @@ html, body {
 }
 
 #menu {
-  margin-bottom: -14px;
+  background-color: #9D4799/*#9d1797*/;
+  border-bottom: 10px solid white;
+  padding: 0px;
+  margin-bottom: 35px;
+  box-shadow: 0px 15px #e50565;
 }
 
 .button {
-  background-color:#5ba215;
-  border: 1px solid #498211;
+  background-color:#bd17a7;
+  border: 0px;
 }
 .button:hover {
-  background-color:#498211;
+  background-color:#f50565;
 }
 .button:focus {
-  background-color:#498211;
+  background-color:#bd17a7;
 }
 
 .f-dropdown {
@@ -70,13 +106,13 @@ html, body {
 /*******************/
 a {
   text-decoration:none;
-  color:#5ba215;
+  color:#bd17a7;
 }
 a:hover {
-  color:#498211;
+  color:#f50565;
 }
 h2 {
-  color:#5ba215;
+  color:#bd17a7;
 }
 .smallCaps {
   font-variant:small-caps;

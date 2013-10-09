@@ -1,12 +1,12 @@
 <h3><a href="/users/[% user.uid | uri %]">[% user.name | html_entity %]</a></h3>
 
-<img src="https://avatar.csh.rit.edu/[% user.uuid | uri %].jpg">
-<ul>
-<li>room:           [% user.room | html_entity %]</li>
+<img class="center" src="https://avatar.csh.rit.edu/[% user.uuid | uri %].jpg">
+<ul class="center">
+<li>[% user.room | html_entity %]</li>
 <li>active:         [% user.active | html_entity %]</li>
 <li>alumni:         [% user.alumni | html_entity %]</li>
 <li>onFloor:        [% user.on_floor | html_entity %]</li>
-<li>housingPoints:  [% user.housing_points | html_entity %]</li>
+<li>Housing Points:  [% user.housing_points | html_entity %]</li>
 
 [% IF user.conditionals %]
     <h4>Conditionals</h4>

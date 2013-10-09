@@ -13,7 +13,7 @@
             [% END %]
 		</div>
 
-		<div class="large-3 pull-9 columns">
+		<div id="side-panel" class="large-4 pull-8 columns">
 			[% PROCESS user_panel.tt %]
 		</div>
 	</div>

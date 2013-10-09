@@ -4,5 +4,5 @@
       <input type="text" placeholder="Title">
       <textarea placeholder="Description"></textarea>
     </form>
-    <a href="#" class="button radius">Submit</a>
+    <a class="button radius small float right"><input type="button">Submit</input></a>
 </div>
