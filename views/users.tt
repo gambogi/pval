@@ -9,11 +9,11 @@
 </thead>
 <tbody>
 
-[% FOREACH user = users %]
+[% FOREACH user IN users %]
 <tr>
     <td><img src="http://avatar.csh.rit.edu/[% user.uuid | uri %].jpg"></td>
     <td><a href="/users/[% user.uid | uri %]">
-    [% user.name | html_entity %]
+    [% user.name | html_entity | truncate(21, '..' ) %]
     </a></td>
     <td>
         [% IF user.conditionals %]
