@@ -66,14 +66,26 @@ html, body {
 .top-bar-section ul li > a {
     color: #fff;
     text-transform: uppercase;
+    -webkit-transition: .3s;
     padding: 0px 10px;
 }
-.top-bar-section ul li > a:active {
+.top-bar-section ul li > a:active{
     color: white;
     background-color: #f50565;
+    -webkit-transition: 1s;
+
+}
+.top-bar-section ul li.active > a {
+    background:  #f50565;
+}
+
+.top-bar-section li a:not(.button):hover {
+    background:  #aD57a9;
+    -webkit-transition: 1s;
 }
 .top-bar-section li a:not(.button) {
     background: none;
+    -webkit-transition: 1s;
 }
 
 #main {
@@ -93,7 +105,7 @@ html, body {
   border: 0px;
 }
 .button:hover {
-  background-color:#f50565;
+  background-color:#aD57a9;
 }
 .button:focus {
   background-color:#bd17a7;
