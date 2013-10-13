@@ -7,11 +7,12 @@
           [% PROCESS user_status_blurb.tt %] 
         </div>
      </div>
-          <h1><a href="/users/[% user.uid | uri %]">
-            [% user.name | html_entity %]
-          </a></h1>
+          <h2><a href="/users/[% user.uid | uri %]">
+            [% user.name | html_entity | truncate 21%]
+          </a></h2>
+    </div>
     [% IF user.conditionals.size %]
-    <div class="small-12 large-6 columns "
+    <div class="row panel "
       <h4>Conditionals</h4>
       <ul>
        [% FOREACH conditional = user.conditionals %]
@@ -24,12 +25,12 @@
     [% END %]
 
     [% IF user.projects.size %]
-    <div class="small-6 columns">
+    <div class="row">
       <h2>Projects</h2>
       [% FOREACH project = user.projects %]
         [% PROCESS project_entity.tt%]  
       [% END %]
-    </div>
+    </div
     [% END %]
   </div>
 </div>

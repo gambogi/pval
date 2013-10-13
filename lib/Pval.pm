@@ -11,6 +11,7 @@ use Dancer::Plugin::Cache::CHI;
 use Dancer::Plugin::DBIC;
 use DateTime;
 use Pval::LDAP;
+use Pval::Misc;
 
 # Other routes
 use Pval::Routes::Event;
@@ -27,7 +28,9 @@ cache_page_key_generator sub {
 get '/' => sub {
     my $db = schema 'default';
 
-    my $user = Pval::LDAP->new->get_eval_director;
+    #my $user = Pval::LDAP->new->find_user(Pval::LDAP->new->get_eval_director);
+    my $user = Pval::Routes::User::get_user_hash('keller');
+
     my $eval_director = Pval::LDAP->new->get_eval_director;
     my $cp = $db->resultset('ControlPanel')->single;
     
@@ -38,14 +41,16 @@ get '/' => sub {
                 spring_form => 0,
         });       
     }
-
-    return cache_page template 'index', {
-        user => $user->[0],
+    unless(defined $user){
+        return 'Error';
+    }
+    return cache_page template_or_json({
+        user => $user,
         eval_director => $eval_director->[0],
         fall_form   => $cp -> fall_form,
         winter_form => $cp -> winter_form,
         spring_form => $cp -> spring_form,
-    };
+    }, 'index', request->content_type);
 };
 
 1;

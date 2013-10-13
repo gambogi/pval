@@ -41,6 +41,15 @@ html, body {
   list-style:none;
 }
 
+.profile-pic {
+    margin-top: -20px;
+    margin-left: -22px;
+    min-height:150px;
+    max-width:150px;
+    overflow: hidden;
+}
+
+
 /****Foundation******/
 #side-panel {
     margin-left: -5%;
@@ -50,6 +59,26 @@ html, body {
 .row.panel {
   background-color: white;
   margin-bottom: 15px;
+}
+
+.row.header{
+  padding: 20px;
+  padding-top: 15px;
+  margin-bottom: 5px;
+  background-color: #ddd;
+  border: 1px solid #ddd;
+  box-shadow: 0px 5px #f50565;
+  height: 63px;
+}
+
+.row.pending{
+    box-shadow: 0px 5px #D9D445;
+}
+.row.passed{
+    box-shadow: 0px 5px #45D957;
+}
+.row.failed{
+    box-shadow: 0px 5px #E01D1D;
 }
 
 .top-bar {
@@ -81,7 +110,7 @@ html, body {
 
 .top-bar-section li a:not(.button):hover {
     background:  #aD57a9;
-    -webkit-transition: 1s;
+    -webkit-transition: .4s;
 }
 .top-bar-section li a:not(.button) {
     background: none;
@@ -118,7 +147,7 @@ html, body {
 /*******************/
 a {
   text-decoration:none;
-  color:#bd17a7;
+  color:#8d1777;
 }
 a:hover {
   color:#f50565;

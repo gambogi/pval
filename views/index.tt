@@ -1,20 +1,20 @@
 [% PROCESS header.tt %]
     <!-- Main Body -->
 	<div id="main" class="row ">
-		<div class="large-8 push-4 columns">
+        <div class="large-8 push-4 columns">
 			[% PROCESS forms/major_project_form.tt %]
 
-            [% IF winter_eval_form || user == eval_director %]
+            [% IF winter_eval_form || user.uid == eval_director %]
 			  [% PROCESS forms/winter_eval_form.tt %]
             [% END %]
 
-            [% IF (fall_eval_form || user == eval_director) %]
+            [% IF (fall_eval_form || user.uid == eval_director) %]
               [% PROCESS forms/fall_eval_form.tt %]
             [% END %]
 		</div>
 
 		<div id="side-panel" class="large-4 pull-8 columns">
-			[% PROCESS user_panel.tt %]
+			[% PROCESS user_sidebar.tt %]
 		</div>
 	</div>
 [% PROCESS footer.tt %]

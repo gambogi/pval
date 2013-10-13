@@ -1,5 +1,5 @@
 <div class="row panel">
-  [% IF user == eval_director %]
+  [% IF user.uid == eval_director %]
     <a class="float right button tiny radius" id="toggle_fall_form">
       [% IF !fall_eval_form %] Activate
       [% ELSE %]               Deactivate

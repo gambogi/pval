@@ -1,16 +1,23 @@
-<h3 class="subheader"><small>
-[% IF user %]
-<a href="/users/[% project.user.uid | uri %]">[% project.user.name | html_entity %]</a>
-[% ELSE %]
-<a href="/users/[% project.submitter.uid | uri %]">[% project.submitter.name | html_entity %]</a>
-[% END %]
+[% USE date %]
+<div class = "row header panel [%project.status | html_entity%]">
+    <p class="small right">
+    [% date.format(project.date, '%m/%d/%y') | html_entity %]
+    </p>
+    <h4><a href="/projects/[% project.id %]">[% project.name | html_entity %]</a></li></h4>
+</div>
+<div class="row panel">
+<h3><small>
+    [% IF user %]
+        <a href="/users/[% project.user.uid | uri %]">
+        [% project.user.name | html_entity %]</a>
+    [% ELSE %]
+        <a href="/users/[% project.submitter.uid | uri %]">
+            [% project.submitter.name | html_entity %]</a>
+    [% END %]
 </small></h3>
-<h4><a href="/projects/[% project.id %]">[% project.name | html_entity %]</a></li></h4>
-
-<ul>
-    <li>[% project.description | html_entity %]</li>
-    <li>[% project.date | html_entity %]</li>
-    <li>[% project.comments | html_entity %]</li>
-    <li>[% project.committee | html_entity %]</li>
-    <li>[% project.status | html_entity %]</li>
+    <h5>Description</h5>
+    <p>[% project.description | html_entity %]</p>
+    <h5>Comments</h5>
+    <p>[% project.comments | html_entity %]</p>
 </ul>
+</div>
