@@ -1,15 +1,9 @@
 <div class="row panel">
   <div class="row">
-    <div class="small-6 large-3 columns">
-    <img class="profile-pic" 
-    src="https://avatar.csh.rit.edu/[% user.uuid | uri %].jpg"></div>
-        <div class="small-6 columns">
-          [% PROCESS user_status_blurb.tt %] 
-        </div>
-     </div>
-          <h2><a href="/users/[% user.uid | uri %]">
-            [% user.name | html_entity | truncate 21%]
-          </a></h2>
+       <h2><a href="/users/[% user.uid | uri %]">
+           [% user.name | html_entity | truncate 21%]
+       </a></h2>
+       [% PROCESS user_status_blurb.tt %] 
     </div>
     [% IF user.conditionals.size %]
     <div class="row panel "
