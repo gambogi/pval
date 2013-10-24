@@ -26,17 +26,15 @@
         <section class="top-bar-section">
         <!-- Left Nav Section -->
             <ul class="left">
-                <li><a href="/users">Users</a></li>
+                <li><a href="/users">Members</a></li>
+                <li><a href="/freshmen">Freshmen</a></li>
                 <li><a href="/projects">Projects</a></li>
-                [% IF user == eval_director %]
-                <li><a href="/controls">Controls</a></li> 
-                [% END %]
+                <li><a href="/events">Events</a></li>
+                <li><a href="/seminars">Seminars</a></li>
             </ul>
 
         <!-- Right Nav Section -->
             <ul class="right">
-                <li><a href="/">Home</a></li>
-                <li><a href="">Housing</a></li>
             </ul>
         </section>
         </nav>
