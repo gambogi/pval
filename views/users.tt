@@ -14,7 +14,7 @@
     <!--td><img src="http://avatar.csh.rit.edu/[% user.uuid | uri %].jpg"></td-->
     <td class="name"> 
 	<!-- So the id needs to be the first different thing for sorting to work -->
-	<a id="[% user.name | html_entity %]" ref="/users/[% user.uid | uri %]">
+	<a id="[% user.name | html_entity %]" href="/users/[% user.uid | uri %]">
     [% user.name | html_entity | truncate(21, '..' ) %]
     </a></td>
     <td class="status hide-for-small">
