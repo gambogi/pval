@@ -51,6 +51,10 @@ html, body {
 
 
 /****Foundation******/
+table {
+	border: none;
+}
+
 #side-panel {
     margin-left: -5%;
     padding-right: 5%;

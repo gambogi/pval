@@ -1,8 +1,22 @@
-<div class="row panel">
+
+<script src="/js/angular.min.js"></script>
+<script>
+var app = angular.module("pVals", []);
+app.controller("demoCTRL", function($scope) {
+	$scope.test = "hello world";
+
+	$scope.newProject = function() {
+		$scope.test += " yay, you pressed it";
+	};
+});
+</script>
+<div ng-app="pVals" class="row panel" ng-controller="demoCTRL">
   <h3>Major Project Form</h3>
     <form>
       <input type="text" placeholder="Title">
       <textarea placeholder="Description"></textarea>
     </form>
-    <a class="button radius small float right"><input type="button">Submit</input></a>
+    <a ng-click="newProject()" class" claso="button radius small float right">
+	Submit</a>
+	{{test}}
 </div>

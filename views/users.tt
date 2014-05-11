@@ -1,21 +1,23 @@
 [% PROCESS header.tt title = "USERS" %]
-<div class="row center"><table>
+<div id="userTable" class="row"><table class="center">
 <thead>
-    <th width="50" height="50"></th>
-    <th width="200">Name</th>
-    <th>Status</th>
-    <th>Housing Points</th>
-    <th>Room Number</th>
+    <!--th width="50" height="50"></th-->
+    <th width="200" class="sort" data-sort="name">Name</th>
+    <th class="sort hide-for-small" data-sort="status">Status</th>
+    <th class="sort" data-sort="housingPoints">Housing Points</th>
+    <th class="sort" data-sort="roomNumber">Room Number</th>
 </thead>
-<tbody>
+<tbody class="list">
 
 [% FOREACH user IN users %]
 <tr>
-    <td><img src="http://avatar.csh.rit.edu/[% user.uuid | uri %].jpg"></td>
-    <td><a href="/users/[% user.uid | uri %]">
+    <!--td><img src="http://avatar.csh.rit.edu/[% user.uuid | uri %].jpg"></td-->
+    <td class="name"> 
+	<!-- So the id needs to be the first different thing for sorting to work -->
+	<a id="[% user.name | html_entity %]" ref="/users/[% user.uid | uri %]">
     [% user.name | html_entity | truncate(21, '..' ) %]
     </a></td>
-    <td>
+    <td class="status hide-for-small">
         [% IF user.conditionals %]
         Conditional
         [% END %]
@@ -29,12 +31,8 @@
         Fuck if I know
         [%END%]
     </td>
-    <td>[% user.housing_points | html_entity %]</td>
-    <td>
-    [% IF user.room %]
-       [% user.room | html_entity %]
-    [% END %]
-    </td>
+    <td class="housingPoints">[% user.housing_points | html_entity %]</td>
+    <td class="roomNumber">[% IF user.room %][% user.room | html_entity %][% END %]</td>
 </tr>
 [% END %]
 </tbody>

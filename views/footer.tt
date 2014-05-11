@@ -3,7 +3,10 @@
 	  ('__proto__' in {} ? '/js/vendor/zepto' : '/js/vendor/jquery') +
 	  '.js><\/script>')
   </script>
-  
+
+  <script src="/js/list.js"></script>
+  <script src="/js/pval.js"></script>
+
   <script src="/js/foundation.min.js"></script>
 	  <!--
 	  
