@@ -63,6 +63,7 @@ table {
 .row.panel {
   background-color: white;
   margin-bottom: 15px;
+  border: none;
 }
 
 .row.header{
