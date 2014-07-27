@@ -12,26 +12,36 @@ use Pval::Misc;
 use Try::Tiny;
 
 sub get_user_hash {
-    my $name = shift;
-    my $ldap = Pval::LDAP->new;
-    my $db = schema;
-    my $ldap_user;
+	my $name = shift;
+	my $ldap = Pval::LDAP->new;
+	my $db = schema;
+	my $ldap_user;
 
-    try {
-        $ldap_user = $ldap->find_user($name);
-    } catch {
-        $ldap_user = undef;
-    };
+	try {
+		$ldap_user = $ldap->find_user($name);
+	} catch {
+		$ldap_user = undef;
+	};
 
-    # Try::Tiny doesn't let you return from catch blocks
-    return $ldap_user unless defined $ldap_user;
+	# Try::Tiny doesn't let you return from catch blocks
+	return $ldap_user unless defined $ldap_user;
 
-    my $db_user = $db->resultset('User')->find({ UUID => $ldap_user->get('entryUUID') });
-    if ($db_user eq "0") {
-        $db_user = $db->resultset('User')->create({ UUID => $ldap_user->get('entryUUID') })->single;
-    }
+	my $db_user = $db->resultset('User')->find({
+			UUID => $ldap_user->get('entryUUID'),
+		});
+	unless (defined $db_user) {
+		return template_or_json({
+			error => 'Could not find user in database'
+		}, 'error', request->content_type);
+	}
 
-    return $db_user->json(1);
+	if ($db_user eq "0") {
+		$db_user = $db->resultset('User')->create({
+			UUID => $ldap_user->get('entryUUID'),
+		})->single;
+	}
+
+	return $db_user->json(1);
 }
 
 ## Routes
@@ -40,33 +50,33 @@ prefix '/users';
 check_page_cache;
 
 get '/:name' => sub {
-    my $name = param 'name';
+	my $name = param 'name';
 
-    my $user = get_user_hash($name);
-    unless (defined $user) {
-        return template_or_json({
-            error => "Cannot find user $name"
-        }, 'error', request->content_type);
-    }
+	my $user = get_user_hash($name);
+	unless (defined $user) {
+		return template_or_json({
+			error => "Cannot find user $name"
+		}, 'error', request->content_type);
+	}
 
-    return cache_page template_or_json({
-        user => $user
-    }, 'user', request->content_type);
+	return cache_page template_or_json({
+		user => $user
+	}, 'user', request->content_type);
 };
 
 get '/' => sub {
-    my $ldap = Pval::LDAP->new;
-    my $active = $ldap->get_active_users;
-    my $db = schema;
-    my $users = [];
+	my $ldap = Pval::LDAP->new;
+	my $active = $ldap->get_active_users;
+	my $db = schema;
+	my $users = [];
 
-    foreach my $active_user (@$active) {
-        push $users, $ldap->ldap_to_json($active_user);
-    }
+	foreach my $active_user (@$active) {
+		push $users, $ldap->ldap_to_json($active_user);
+	}
 
-    return cache_page template_or_json({
-        users => $users,
-    }, 'users', request->content_type);
+	return cache_page template_or_json({
+			users => $users,
+		}, 'users', request->content_type);
 };
 
 1;
