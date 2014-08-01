@@ -30,3 +30,5 @@ sub freshmen_aggregates {
         freshmen => [ map { $_->json } @freshmen ],
     }, 'freshmen', request->content_type;
 }
+
+1;
