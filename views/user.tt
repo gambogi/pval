@@ -1,3 +1,0 @@
-[% PROCESS header.tt title = name %]
-[% PROCESS user_panel.tt %]
-[% PROCESS footer.tt %]

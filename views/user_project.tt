@@ -1,7 +1,0 @@
-[% PROCESS header.tt %]
-[% FOREACH project = projects %]
-<div class="small-6 row">
-[% PROCESS project_entity.tt %]
-</div>
-[% END %]
-[% PROCESS footer.tt %]

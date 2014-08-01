@@ -1,5 +1,0 @@
-[% PROCESS header.tt title = "ERROR" %]
-<div class= "row panel error">
-[% error | html_entity %]
-</div>
-[% PROCESS footer.tt %]
