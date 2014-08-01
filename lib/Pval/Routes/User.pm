@@ -9,42 +9,8 @@ use Dancer::Plugin::DBIC;
 use Dancer::Plugin::Cache::CHI;
 use Pval::LDAP;
 use Pval::Misc;
+use Pval::Routes::User::Utils;
 use Try::Tiny;
-
-sub get_user_hash {
-	my $name = shift;
-	my $ldap = Pval::LDAP->new;
-	my $db = schema;
-	my $ldap_user;
-
-	try {
-		$ldap_user = $ldap->find_user($name);
-	} catch {
-		$ldap_user = undef;
-	};
-
-	# Try::Tiny doesn't let you return from catch blocks
-	return $ldap_user unless defined $ldap_user;
-
-	my $db_user = $db->resultset('User')->find({
-			UUID => $ldap_user->get('entryUUID'),
-		});
-	unless (defined $db_user) {
-		return template_or_json({
-			error => 'Could not find user in database'
-		}, 'error', request->content_type);
-	}
-
-	if ($db_user eq "0") {
-		$db_user = $db->resultset('User')->create({
-			UUID => $ldap_user->get('entryUUID'),
-		})->single;
-	}
-
-	return $db_user->json(1);
-}
-
-## Routes
 
 prefix '/users';
 check_page_cache;
