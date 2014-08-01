@@ -11,7 +11,7 @@ use Pval::LDAP;
 use Pval::Misc;
 use Try::Tiny;
 
-use base Exporter;
+use base 'Exporter';
 our @EXPORT = qw/
 	get_user_hash
 /;
