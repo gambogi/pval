@@ -25,6 +25,11 @@ get '/year/:year' => sub {
     freshmen_aggregates param 'year';
 };
 
+post '/create' => sub {
+    my %params = params;
+    return create_freshman $params{name}, $params{vote_date};
+};
+
 get '/:id' => sub {
     my $db = schema;
     my $freshman = $db->resultset('Freshman')->find({
