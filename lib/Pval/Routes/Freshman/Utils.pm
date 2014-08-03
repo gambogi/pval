@@ -7,6 +7,8 @@ use v5.10;
 use Dancer;
 use Dancer::Plugin::Cache::CHI;
 use Dancer::Plugin::DBIC;
+use DateTime;
+use DateTime::Duration;
 use Pval::LDAP;
 use Pval::Misc;
 
@@ -33,12 +35,16 @@ sub freshmen_aggregates {
 
 sub create_freshman {
     my $name = shift;
-    my $vote_date = shift;
+    my $now = DateTime->now( time_zone => 'America/New_York' );
+    my $vote_date = $now->add( weeks => 10 );
+
     my $dtf = schema->storage->datetime_parser;
     my $db = schema;
+
     return $db->resultset('Freshman')->create({
         name => $name,
         vote_date => $dtf->format_datetime($vote_date),
+        ten_week => $dtf->format_datetime($vote_date),
         timestamp => \'CURRENT_TIMESTAMP',
     });
 }

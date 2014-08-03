@@ -31,14 +31,9 @@ sub get_user_hash {
 	# Try::Tiny doesn't let you return from catch blocks
 	return $ldap_user unless defined $ldap_user;
 
-	my $db_user = $db->resultset('User')->find({
+	my $db_user = $db->resultset('User')->find_or_create({
 			UUID => $ldap_user->get('entryUUID'),
 		});
-	unless (defined $db_user) {
-		return template_or_json({
-			error => 'Could not find user in database'
-		}, 'error', request->content_type);
-	}
 
 	if ($db_user eq "0") {
 		$db_user = $db->resultset('User')->create({
