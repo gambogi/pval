@@ -37,7 +37,7 @@ get '/' => sub {
     my $users = [];
 
     foreach my $active_user (@$active) {
-        push $users, $ldap->ldap_to_json($active_user);
+        push $users, get_user_hash($active_user->get('uid'));
     }
 
     return cache_page template_or_json({
