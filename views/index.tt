@@ -7,7 +7,8 @@
         <div class="row">
           <div class="col-md-12">
             <div class="user-avatar">
-              <img src="http://placekitten.com/72/72" alt="..." class="img-circle">
+                <img src="://avatar.csh.rit.edu/[% user.uuid | uri %].jpg" 
+                alt="[% user.name %]" class="img-circle">
             </div>
             <div class="user-info">
               <h3>[% user.name | html %]</h3>
