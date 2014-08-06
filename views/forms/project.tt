@@ -1,0 +1,35 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Project Submission Form</strong>
+    </div>
+    <div class="panel-body" id="projectSubmissionFormBody">
+        <form role="form">
+            <div class="form-group">
+                <label for="">Project Name</label>
+                <input type="text" class="form-control" placeholder="SLUT, Revision 3">
+            </div>
+            <div class="form-group">
+                <label for="">Committee</label>
+                <select class="form-control">
+                    <option>R&amp;D</option>
+                    <option>OpComm</option>
+                    <option>Imps</option>
+                    <option>Social</option>
+                    <option>History</option>
+                    <option>Evals</option>
+                    <option>Financial</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for ="">Description</label>
+                <textarea rows="5" class="form-control" placeholder="Now with 300% more LEDs!"></textarea>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> Read my description at Eboard
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>

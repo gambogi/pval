@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <strong>Introductory Evaluation Form</strong>
+        <div class="pull-right">
+            <a href="#">Disable</a>
+        </div>
+    </div>
+    <div class="panel-body" id="introEvalFormBody">
+        <div class="form-group">
+            <label for="">Social Events Attended/Hosted</label>
+            <textarea class="form-control" placeholder="Copdogapaloozathon..."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="">Projects Worked On</label>
+            <textarea class="form-control" placeholder="Vacuum-assisted Shitting Machine"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<h4>Membership Points<div class="pull-right small"><a href="#" onclick="displayHelp('points');" data-toggle="modal" data-target="#help-modal">What is this?</a></div></h4>
+<table class="table table-striped table-bordered info-table">
+    <tr><td>Major Projects:</td>
+        <td>[% user.projects.size %]</td>
+        <td>50 Points</td>
+    </tr><tr>
+        <td>Contributions:</td>
+        <td>0</td>
+        <td>0 Points</td>
+    </tr><tr>
+        <td>Attendance:</td>
+        <td>[% user.meetings.size %] </td>
+        <td>30 Points</td>
+    </tr><tr>
+        <td>Seminars:</td>
+        <td>[% user.seminars.size %]</td>
+        <td>[% user.seminars.size %] Points</td>
+    </tr><tr>
+        <td>Housing Eval:</td>
+        <td>[% user.housing_eval %]</td>
+        <td>[% user.housing_eval %] Points</td>
+    </tr>
+    <tr>
+        <td>Missed House Meetings:</td>
+        <td>[% user.missed_house_meetings.size %]</td>
+        <td>[% user.missed_house_meetings.size %] Points</td>
+    </tr>
+</table>
+<div class="center">
+    <h3><small>Points: </small><span class="label">[% user.points %]</span></h3>
+</div>

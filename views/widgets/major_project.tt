@@ -1,0 +1,23 @@
+[% switch project.status %]
+    [% case 'passed' %]
+    [% panel_type = 'panel-success' %]
+    [% case 'failed' %]
+    [% panel_type = 'panel-danger' %]
+    [% case 'pending' %]
+    [% panel_type = 'panel-info' %]
+[% end %]
+
+<div class="panel [% panel_type %]">
+    <div class="panel-heading">
+        <strong>
+            [% project.name | html %]
+        </strong>
+        <div class="pull-right">
+            [% project.status %]
+        </div>
+    </div>
+    <div class="panel-body">
+        <p>[% project.description | html_para %]</p>
+        <p class="small">Committee: [% project.committee %] </p>
+    </div>
+</div>

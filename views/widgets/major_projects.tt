@@ -1,0 +1,15 @@
+
+<h4>Major Projects<div class="pull-right small"><a href="#" onclick="displayHelp('projects');" data-toggle="modal" data-target="#help-modal">What is this?</a></div></h4>
+<div class="row">
+    [% if projects.size %]
+        [% foreach project in projects %]
+        <div class="col-md-6 col-sm-6">
+            [% include widgets/major_project.tt
+                project = project
+            %]
+        </div>
+        [% end %]
+    [% else %]
+    <div class="col-md-6 col-sm-6">No projects to display. Get to work!</div>
+    [% end %]
+</div>

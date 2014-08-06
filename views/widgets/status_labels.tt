@@ -1,0 +1,8 @@
+<div class="user-status">
+    <span class="label label-primary">
+        [% user.on_floor ? 'On-Floor':'Off-Floor' %]</span>
+    <span class="label label-primary footroom-5">
+        [% user.active ? 'Active' : 'Alumni' %]</span>
+    <br class="hidden-xs">
+    <p class="big-only">Housing Points: <span class="badge">[% user.housing_points %]</span></p>
+</div>

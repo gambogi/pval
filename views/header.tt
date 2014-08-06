@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+  <title>Home | EvalDB</title>
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <style>
+    body {
+      padding-top: 70px;
+      padding-bottom: 20px;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .border {
+      border-radius: 5px;
+      border: 1px solid #DDDDDD;
+    }
+
+    .user-info h3, .user-info h4 {
+      margin-top: 6px;
+    }
+
+    .info-table tr td:nth-child(1) {
+      font-weight: bold;
+    }
+
+    /* Extra small devices (phones, up to 480px) */
+    .user-avatar {
+      width: 25%;
+      float: left;
+    }
+
+    .user-info {
+      width: 75%;
+      float: left;
+    }
+
+    .user-status {
+      width: 100%;
+      float: left;
+      padding-top: 10px;
+      padding-right: 6px;
+      text-align: left;
+    }
+
+    .big-only {
+      display: inline;
+    }
+    
+
+    /* Small devices (tablets, 768px and up) */
+    @media (min-width: 768px) {
+      .user-avatar {
+        width: 12%;
+      }
+
+      .user-info {
+        width: 65%;
+      }
+
+      .user-status {
+        width: 23%;
+        text-align: right;
+      }
+
+      .big-only {
+        padding-top: 10px;
+        display: block;
+      }
+    }
+
+    /* Medium devices (desktops, 992px and up) */
+    @media (min-width: 992px) { 
+      .user-avatar {
+        width: 16%;
+      }
+
+      .user-info {
+        width: 54%;
+      }
+
+      .user-status {
+        width: 30%;
+      }
+    }
+
+    /* Large devices (large desktops, 1200px and up) */ 
+    @media (min-width: 1200px) { 
+
+      .user-avatar {
+        width: 12%;
+      }
+
+      .user-info {
+        width: 65%;
+      }
+
+      .user-status {
+        width: 23%;
+      }
+
+    }
+  </style>
+</head>
+<body>
+  <!-- Modal -->
+  <div class="modal fade" id="help-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="help-title">Modal title</h4>
+        </div>
+        <div class="modal-body" id="help-body">
+          <p>One fine body&hellip;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  [% PROCESS navbar.tt %]
