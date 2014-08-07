@@ -16,26 +16,52 @@ prefix '/projects';
 check_page_cache;
 
 get '/' => sub {
-    aggregate_projects {};
+    return aggregate_projects {};
 };
 
 get '/:result' => sub {
     pass unless param('result') ~~ [ qw/pending passed failed/ ];
-    aggregate_projects { status => param 'result' };
+    return aggregate_projects { status => param 'result' };
 };
 
 get '/year/:year' => sub {
     return {
         error => 'Invalid year '.param 'year'
     }, 'error', request->content_type unless valid_year param 'year';
-    aggregate_projects {}, param 'year';
+    return aggregate_projects {}, param 'year';
 };
 
 get '/year/:year/:result' => sub {
     return {
         error => 'Invalid year '.param 'year'
     }, 'error', request->content_type unless valid_year param 'year';
-    aggregate_projects {status => param 'result'}, param 'year';
+
+    return aggregate_projects (
+        {status => param 'result'},
+        param 'year'
+    );
+};
+
+post '/create' => sub {
+    my $db = schema;
+    my $user = Pval::LDAP->new->uid_to_uuid( request->header('x-webauth-user');
+    die "Could not find $user in LDAP." unless $user;
+    $db->resultset('MajorProject')->update_or_create({
+            name => request->header('name'),
+            description => request->header('description'),
+            submitter => $user,
+            committee => request->header('committee'),
+            status => 'pending',
+        });
+};
+
+post '/vote/:result/:id' => sub {
+    my $db = schema;
+    pass unless param('result') ~~ [ qw/pending passed failed/ ];
+    return $db->resultset('MajorProject')->update({
+            id => param 'id',
+            status => param 'result',
+        });
 };
 
 
@@ -47,7 +73,9 @@ get '/:id' => sub {
     my $project = undef;
 
     try {
-        $project = $db->resultset('MajorProject')->find({ id => $id }, { prefetch => 'submitter' });
+        $project = $db->resultset('MajorProject')->find({
+                id => $id 
+            }, { prefetch => 'submitter' });
     };
 
     if (defined $project) {

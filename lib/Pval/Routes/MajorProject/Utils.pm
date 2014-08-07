@@ -14,6 +14,7 @@ use Try::Tiny;
 use base 'Exporter';
 our @EXPORT = qw/
     aggregate_projects
+    create_project
 /;
 
 sub aggregate_projects {
@@ -32,6 +33,23 @@ sub aggregate_projects {
     return cache_page template_or_json({
             projects => [ map { $_->json } @projects ]
         }, 'user_project', request->content_type);
+}
+
+sub create_project {
+    my ($name,
+        $description,
+        $submitter,
+        $committee,
+    ) = @_;
+    my $db = schema;
+
+    $db->resultset('MajorProject')->update_or_create({
+            name => $name,
+            description => $description,
+            submitter => $submitter,
+            committee => $committee,
+        });
+    1;
 }
 
 1;
