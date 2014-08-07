@@ -28,7 +28,9 @@ cache_page_key_generator sub {
 get '/' => sub {
     my $db = schema 'default';
 
-    my $user = Pval::Routes::User::Utils::get_user_hash('tcohen');
+    my $user = Pval::Routes::User::Utils::get_user_hash(
+        request->header('x-webauth-user')
+    );
     my $eval_director = Pval::LDAP->new->get_eval_director;
 
     return 'Error' unless defined $user;
