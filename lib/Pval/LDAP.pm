@@ -59,6 +59,18 @@ sub uuid_to_user {
     return $username;
 }
 
+sub uid_to_uuid {
+    my $self = shift;
+    my $uid = shift;
+
+    my $entryUUID = $self->_fetch_from_ldap(
+        "uid=$uid",
+        ['entryUUID'],
+    )->[0];
+    die "Cannot find $entryUUID in LDAP" unless $entryUUID;
+    return $entryUUID;
+}
+
 sub find_user {
     my $self = shift;
     my $username = shift;
