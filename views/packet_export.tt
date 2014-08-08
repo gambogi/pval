@@ -1,0 +1,3 @@
+[% foreach freshman in freshmen %]
+[% freshman.id %],[% freshman.name %]
+[% end %]

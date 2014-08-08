@@ -7,8 +7,8 @@
         <div class="row">
           <div class="col-md-12">
             <div class="user-avatar">
-                <img src="://avatar.csh.rit.edu/[% user.uuid | uri %].jpg" 
-                alt="[% user.name %]" class="img-circle">
+                <img src="https://avatar.csh.rit.edu/[% user.uuid | uri %].jpg"
+                alt="[% user.name | html_entity %]" class="user-avatar img-circle">
             </div>
             <div class="user-info">
               <h3>[% user.name | html %]</h3>
@@ -38,40 +38,4 @@
       </div>
     </div>
   </div>
-  <!-- Scripts -->
-  <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
-  <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-  <!--<script src="https://code.angularjs.org/snapshot/angular.min.js"></script>-->
-  <script>
-
-    var memPtsHelpHTML = "<p>The Membership Points system is used to evaluate our members for continued membership each year. Members must accumulate 100 points by the end of the school year to continue as an Active Member the following year. You can accumulate points in a number of ways:</p>";
-    memPtsHelpHTML += "<ul><li>Your first Major Project is 50 points; each extra is 20 points.</li><li>Contributions to floor are worth 15 points.</li><li>Attendance at meetings and seminars are worth 1 point each (30 max).</li><li>Hosting seminars are worth 5 points each (15 max)</li><li>The Housing Evaluation provides up to 40 points.</li>";
-    var majProjHelpHTML = "<p>The Major Project is one of your requirements as a member of CSH. A Major Project is what it sounds like; a fairly \"large\", meaningful project done outside of class. The Major Project is worth the most Membership Points, 50 points for the first one and 20 points for any additional projects. You can also perform \"Contributions,\" deeds or services that help CSH and its members, which are worth 15 points.</p>";
-    majProjHelpHTML += "<p>Members are encouraged to continually learn and better themselves (an perhaps CSH while they're at it), and therefore do many Major Projects and Contributions!</p>";
-
-    function toggle(selector) {
-      var elem = document.querySelector(selector);
-      if (elem.getAttribute("style") == "display:none")
-        elem.setAttribute("style", "display:block");
-      else
-        elem.setAttribute("style", "display:none");
-    }
-
-    function displayHelp(type) {
-      console.log(type);
-      if (type == "points"){
-        document.querySelector("#help-title").innerHTML = "What are Membership Points?";
-        document.querySelector("#help-body").innerHTML = memPtsHelpHTML;
-      }
-      else {
-        document.querySelector("#help-title").innerHTML = "What are Major Projects?";
-        document.querySelector("#help-body").innerHTML = majProjHelpHTML;
-      }
-    }
-
-    toggle("#housingEvalFormBody");
-    toggle("#introEvalFormBody");
-
-  </script>   
-</body>
-</html>
+[% process footer.tt %]

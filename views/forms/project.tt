@@ -3,7 +3,7 @@
         <strong>Project Submission Form</strong>
     </div>
     <div class="panel-body" id="projectSubmissionFormBody">
-        <form role="form">
+        <form role="form" id="project-form">
             <div class="form-group">
                 <label for="">Project Name</label>
                 <input type="text" class="form-control" placeholder="SLUT, Revision 3">
@@ -23,11 +23,6 @@
             <div class="form-group">
                 <label for ="">Description</label>
                 <textarea rows="5" class="form-control" placeholder="Now with 300% more LEDs!"></textarea>
-            </div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox"> Read my description at Eboard
-                </label>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
