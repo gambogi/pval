@@ -12,6 +12,10 @@ use Pval::Routes::Event::Utils;
 
 check_page_cache;
 
+get '/house/meetings' => sub {
+    return aggregate_routes 'house_meeting';
+};
+
 get '/meetings/house' => sub {
     return aggregate_routes 'house_meeting';
 };
@@ -61,27 +65,27 @@ get '/meetings/:committee/:id' => sub {
 };
 
 get '/seminars' => sub {
-    return aggregate_routes 'technical';
+    return aggregate_routes 'events/seminars';
 };
 
 get '/seminars/year/:year' => sub {
-    return aggregate_routes 'technical', param 'year';
+    return aggregate_routes 'events/seminars', param 'year';
 };
 
 get '/seminars/:id' => sub {
-    return single_routes 'technical', param 'id';
+    return single_routes 'events/seminar', param 'id';
 };
 
 get '/events' => sub {
-    return aggregate_routes 'social';
+    return aggregate_routes 'events/social_events';
 };
 
 get '/events/year/:year' => sub {
-    return aggregate_routes 'social', param 'year';
+    return aggregate_routes 'events/social_events', param 'year';
 };
 
 get '/events/:id' => sub {
-    return single_routes 'social', param 'id';
+    return single_routes 'events/social_event', param 'id';
 };
 
 1;
