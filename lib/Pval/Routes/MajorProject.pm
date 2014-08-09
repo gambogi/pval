@@ -44,7 +44,9 @@ get '/year/:year/:result' => sub {
 
 post '/create' => sub {
     my $db = schema;
-    my $user = Pval::LDAP->new->uid_to_uuid( request->header('x-webauth-user');
+    my $user = Pval::LDAP->new->uid_to_uuid(
+        request->header('x-webauth-user')
+    );
     die "Could not find $user in LDAP." unless $user;
     $db->resultset('MajorProject')->update_or_create({
             name => request->header('name'),

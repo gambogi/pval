@@ -30,8 +30,15 @@ post '/create' => sub {
     return create_freshman $params{name}, $params{vote_date};
 };
 
+get '/dump' => sub {
+    return freshman_dump;
+};
+
 get '/:id' => sub {
     my $db = schema;
+    my $user = request->header('X-WEBAUTH-USER');
+    my $eval_director = Pval::LDAP->new->get_eval_director;
+    return 'not Eval Director' unless $user eq $eval_director;
     my $freshman = $db->resultset('Freshman')->find({
         id => param 'id',
     }, {

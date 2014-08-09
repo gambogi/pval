@@ -13,6 +13,7 @@ use Pval::Routes::User::Utils;
 use Try::Tiny;
 
 prefix '/users';
+
 check_page_cache;
 
 get '/:name' => sub {
@@ -27,7 +28,7 @@ get '/:name' => sub {
 
     return cache_page template_or_json({
             user => $user
-        }, 'user', request->content_type);
+        }, 'users/user', request->content_type);
 };
 
 get '/' => sub {
@@ -42,7 +43,7 @@ get '/' => sub {
 
     return cache_page template_or_json({
             users => $users,
-        }, 'users', request->content_type);
+        }, 'users/index', request->content_type);
 };
 
 1;
