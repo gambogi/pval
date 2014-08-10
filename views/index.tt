@@ -36,6 +36,7 @@
       <div class="col-lg-4 col-md-5">
           [% process forms.tt %]
       </div>
+      <p>[% user.dump %]</p>
     </div>
   </div>
 [% process footer.tt %]
