@@ -29,15 +29,11 @@ get '/' => sub {
     my $db = schema 'default';
 
     my $user = Pval::Routes::User::Utils::get_user_hash(
-        request->header('x-webauth-user')
+      request->header('x-webauth-user') // 'tcohen'
     );
-    my $eval_director = Pval::LDAP->new->get_eval_director;
-
-    return 'Error' unless defined $user;
 
     return cache_page template_or_json({
             user => $user,
-            eval_director => $eval_director->[0],
         }, 'index', request->content_type);
 };
 

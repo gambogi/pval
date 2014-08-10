@@ -29,8 +29,9 @@ sub json {
     my $self     = shift;
     my $deep     = shift;
     my $ldap     = Pval::LDAP->new;
-    my $user     = $ldap->ldap_to_json($self->ldap_entry);
 
+    my $user     = $ldap->ldap_to_json($self->ldap_entry);
+    my $eboard   = $ldap->get_eboard;
     if ($deep) {
         my $conditionals = [];
         foreach my $conditional ($self->conditionals) {
@@ -39,16 +40,29 @@ sub json {
             delete $cond->{freshman};
             push $conditionals, $cond;
         }
-        my $projects =[];
+        my $projects = [];
         foreach my $project ($self->projects) {
             my $proj = $project->json;
             push $projects, $proj;
         }
+        use Data::Dumper;
+        my $events = [];
+        foreach my $event ($self->event_attendee) {
+             push $events, Dumper( $event );
+        }
+
+        foreach my $committee (keys $eboard) {
+            foreach my $exec (@{$eboard->{$committee}}) {
+                if ($user->{uid} eq $exec) {
+                    $user->{eboard} = $committee;
+                }
+            }
+        }
 
         $user->{conditionals} = $conditionals;
         $user->{projects}     = $projects;
+        $user->{meetings}       = $events;
     }
-
     return $user;
 }
 

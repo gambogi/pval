@@ -56,6 +56,7 @@ sub uuid_to_user {
     return $username;
 }
 
+
 sub uid_to_uuid {
     my $self = shift;
     my $uid = shift;
@@ -78,11 +79,39 @@ sub find_user {
     return $user;
 }
 
-sub get_eval_director {
+### get_eboard :: self -> {committee_name => [uid]}
+sub get_eboard {
     my $self = shift;
+    my $eboard = {};
+    my @committees = qw/
+        eboard
+        financial
+        history
+        improvements
+        opcomm
+        r&d
+        social
+    /;
+    foreach my $committee (@committees){
+        $eboard->{$committee} = $self->get_eboard_director($committee);
+    }
+    # I want to smack an RTP for this. Note the spelling of 'evaluations'
+    $eboard->{evals} = $self->get_eboard_director('evaulations');
+    return $eboard;
+}
 
-    my $ret = $self->_fetch_from_ldap("cn=Evaulations", [ qw/head/ ], 'ou=Committees,dc=csh,dc=rit,dc=edu')->[0];
-    die "Cannot find eval director in LDAP" unless $ret;
+### get_eboard_director :: self -> committee_name -> uid
+sub get_eboard_director {
+    my $self = shift;
+    my $committee = shift;
+
+    my $ret = $self->_fetch_from_ldap (
+        "cn=$committee",
+        [ qw/head/ ],
+        'ou=Committees,dc=csh,dc=rit,dc=edu',
+    )->[0];
+    die "Cannot find $committee director in LDAP" unless $ret;
+    # pull out uid
     map { s/uid=(\w+),ou=Users,dc=csh,dc=rit,dc=edu/$1/ } @{$ret->get("head")};
     return $ret->get("head");
 }
@@ -94,6 +123,7 @@ sub get_active_users {
 
     my $ret = $self->_fetch_from_ldap("active=1", [ qw/uid cn entryUUID active alumni housingPoints onfloor roomNumber/ ]);
 }
+
 
 sub _fetch_from_ldap {
     my ($self, $query, $attrs, $base) = @_;
