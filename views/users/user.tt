@@ -1,0 +1,40 @@
+[% process header.tt %]
+<!-- Content -->
+  <div class="container">
+    <div class="row">
+      <!-- User Info -->
+      <div class="col-lg-8 col-md-7">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="user-avatar">
+                <img src="https://avatar.csh.rit.edu/[% user.uuid | uri %].jpg"
+                alt="[% user.name | html_entity %]" class="user-avatar img-circle">
+            </div>
+            <div class="user-info">
+              <h3>[% user.name | html %]</h3>
+              <h4>[% user.uid | html %]</h4>
+            </div>
+            [% process widgets/status_labels.tt %]
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-12">
+              [% process user/point_table.tt %]
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-12">
+          </div>
+        </div>
+      </div>
+      <!-- Forms -->
+      <div class="col-lg-4 col-md-5">
+              [% include widgets/major_projects.tt 
+                 projects = user.projects
+              %]
+      </div>
+    </div>
+  </div>
+[% process footer.tt %]
