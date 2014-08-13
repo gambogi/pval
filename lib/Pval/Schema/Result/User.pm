@@ -46,9 +46,16 @@ sub json {
             push $projects, $proj;
         }
         use Data::Dumper;
-        my $events = [];
+        my $meetings = [];
+        my $seminars = [];
         foreach my $event ($self->event_attendee) {
-             push $events, Dumper( $event );
+            my $eventhash = $event->event->json;
+            if ($eventhash->{type} eq 'technical') {
+                push $seminars, $eventhash;
+            }
+            elsif ($eventhash->{type} eq 'committee_meeting') {
+                push $meetings, $eventhash;
+            }
         }
 
         foreach my $committee (keys $eboard) {
@@ -60,8 +67,9 @@ sub json {
         }
 
         $user->{conditionals} = $conditionals;
-        $user->{projects}     = $projects;
-        $user->{meetings}       = $events;
+        $user->{projects} = $projects;
+        $user->{meetings} = $meetings;
+        $user->{seminars} = $seminars;
     }
     return $user;
 }
