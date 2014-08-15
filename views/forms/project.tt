@@ -6,7 +6,7 @@
         <form role="form" id="project-form">
             <div class="form-group">
                 <label for="">Project Name</label>
-                <input type="text" class="form-control" placeholder="SLUT, Revision 3">
+                <input type="text" class="form-control" placeholder="Heroine, finally">
             </div>
             <div class="form-group">
                 <label for="">Committee</label>
