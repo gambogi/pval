@@ -84,7 +84,6 @@ sub get_eboard {
     my $self = shift;
     my $eboard = {};
     my @committees = qw/
-        eboard
         financial
         history
         improvements
@@ -97,6 +96,8 @@ sub get_eboard {
     }
     # I want to smack an RTP for this. Note the spelling of 'evaluations'
     $eboard->{evals} = $self->get_eboard_director('evaulations');
+    # Not as bad as a spelling mistake, but a little silly nevertheless
+    $eboard->{chairman} = $self->get_eboard_director('eboard');
     return $eboard;
 }
 
