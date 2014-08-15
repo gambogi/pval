@@ -31,7 +31,7 @@ sub freshmen_aggregates {
 
     return cache_page template_or_json {
         freshmen => [ map { $_->json } @freshmen ],
-    }, 'freshmen', request->content_type;
+    }, 'freshmen/freshmen', request->content_type;
 }
 
 sub freshman_dump {
